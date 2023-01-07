@@ -1,0 +1,18 @@
+$bg-body: #252525;
+
+$primary: #46295a;
+$secondary: #ffccff;
+$primary-dark: #201229;
+$secondary-dark: #fcdafc;
+
+$theme-colors: (
+	"primary": $primary,
+	"secondary": $secondary,
+);
+
+$custom-colors: (
+	"primary-dark": $primary-dark,
+	"secondary-dark": $secondary-dark,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
