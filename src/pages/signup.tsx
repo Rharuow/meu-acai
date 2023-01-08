@@ -26,7 +26,7 @@ const Signup = () => {
 						<Form>
 							<Form.Group className="mb-3">
 								<Form.Label>Telefone</Form.Label>
-								<Form.Control type="phone" placeholder="Digite seu telefone" />
+								<Form.Control type="number" placeholder="Digite seu telefone" />
 							</Form.Group>
 							<Form.Group className="mb-3">
 								<Form.Label>Senha</Form.Label>
@@ -34,16 +34,6 @@ const Signup = () => {
 							</Form.Group>
 							<Form.Group className="d-flex flex-wrap justify-content-center">
 								<Button className="mb-1">Entrar</Button>
-								<div className="w-100 text-center">
-									<small>
-										<Link href="/signup">Me cadastrar</Link>
-									</small>
-								</div>
-								<div className="w-100 text-center">
-									<small>
-										<Link href="/forgot-password">Esqueci minha senha</Link>
-									</small>
-								</div>
 							</Form.Group>
 						</Form>
 					</Card.Body>
