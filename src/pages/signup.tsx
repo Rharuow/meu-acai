@@ -1,33 +1,32 @@
-import { Button, Card, Form } from "react-bootstrap";
-import React from "react";
 import Image from "next/image";
-import { useWindowSize } from "../Hooks/windowsize";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import { Button, Card, Form } from "react-bootstrap";
+import { useWindowSize } from "../Hooks/windowsize";
 
-const Home: React.FC<{}> = () => {
+const Signup = () => {
 	const {
 		windowSize: { width },
 	} = useWindowSize();
+
+	const route = useRouter();
+
 	return (
 		<div className="d-flex h-100vh">
+			<Button
+				className="position-absolute t-25px l-25px d-flex justify-content-center align-items-end"
+				onClick={() => route.back()}
+			>
+				<i className="fs-1 fa fa-angle-left me-2"></i>Voltar
+			</Button>
 			<div className="w-100 bg-primary d-flex justify-content-center flex-wrap align-items-center">
-				<div className="d-flex w-100 justify-content-center align-self-end mb-3">
-					<div className="d-flex align-items-center">
-						<Image
-							alt="logo"
-							src="/product/meu-açai.png"
-							className="rounded-circle"
-							width={width * 0.36}
-							height={width * 0.36}
-						/>
-					</div>
-				</div>
-				<Card className="align-self-start">
+				<Card className="shadow-lg">
 					<Card.Body className="bg-secondary">
 						<Form>
 							<Form.Group className="mb-3">
-								<Form.Label>Email</Form.Label>
-								<Form.Control type="email" placeholder="Digite um email" />
+								<Form.Label>Telefone</Form.Label>
+								<Form.Control type="phone" placeholder="Digite seu telefone" />
 							</Form.Group>
 							<Form.Group className="mb-3">
 								<Form.Label>Senha</Form.Label>
@@ -54,4 +53,4 @@ const Home: React.FC<{}> = () => {
 	);
 };
 
-export default Home;
+export default Signup;
