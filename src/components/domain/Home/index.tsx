@@ -2,6 +2,7 @@ import { Button, Card, Form } from "react-bootstrap";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import InputMask from "react-input-mask";
 
 const Home = () => {
 	return (
@@ -22,8 +23,12 @@ const Home = () => {
 					<Card.Body className="bg-secondary">
 						<Form>
 							<Form.Group className="mb-3">
-								<Form.Label>Email</Form.Label>
-								<Form.Control type="email" placeholder="Digite um email" />
+								<Form.Label>Telefone</Form.Label>
+								<InputMask
+									className="form-control"
+									mask="+55(099)99999-9999"
+									placeholder="Digite seu número"
+								/>
 							</Form.Group>
 							<Form.Group className="mb-3">
 								<Form.Label>Senha</Form.Label>
