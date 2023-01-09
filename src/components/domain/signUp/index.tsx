@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Card, Form, FormControl } from "react-bootstrap";
 import InputMask from "react-input-mask";
 
 import listAddress from "./utils/address";
@@ -11,19 +11,21 @@ const SignUp = () => {
 	const { houses, squares } = listAddress();
 
 	return (
-		<div className="d-flex h-100vh">
-			<Button
-				className="position-absolute t-15px l-15px d-flex justify-content-center align-items-end"
-				onClick={() => route.back()}
-			>
-				<i className="fs-1 fa fa-angle-left me-2"></i>Voltar
-			</Button>
-			<div className="w-100 bg-primary d-flex justify-content-center flex-wrap align-items-center">
+		<div className="d-flex flex-wrap pb-5">
+			<div className="w-100 mt-15px ms-15px mb-3">
+				<Button
+					className="d-flex justify-content-center align-items-center"
+					onClick={() => route.back()}
+				>
+					<i className="fs-1 fa fa-angle-left me-2"></i>Voltar
+				</Button>
+			</div>
+			<div className="w-100 d-flex justify-content-center flex-wrap align-items-center">
 				<Card className="shadow-lg">
 					<Card.Body className="bg-secondary">
 						<Form>
 							<Form.Group className="mb-3">
-								<Form.Label>Telefone</Form.Label>
+								<Form.Label className="text-primary">Telefone</Form.Label>
 								<InputMask
 									className="form-control"
 									mask="+55(099)99999-9999"
@@ -31,7 +33,11 @@ const SignUp = () => {
 								/>
 							</Form.Group>
 							<Form.Group className="mb-3">
-								<Form.Label>Endereço</Form.Label>
+								<Form.Label className="text-primary">Nome</Form.Label>
+								<FormControl placeholder="Digite seu nome" />
+							</Form.Group>
+							<Form.Group className="mb-3">
+								<Form.Label className="text-primary">Endereço</Form.Label>
 								<Form.Select
 									aria-label="What's your square house address"
 									className="mb-3"
@@ -51,7 +57,7 @@ const SignUp = () => {
 								</Form.Select>
 							</Form.Group>
 							<Form.Group className="mb-3">
-								<Form.Label>Senha</Form.Label>
+								<Form.Label className="text-primary">Senha</Form.Label>
 								<Form.Control type="password" placeholder="Digite sua senha" />
 							</Form.Group>
 							<Form.Group className="d-flex flex-wrap justify-content-center">

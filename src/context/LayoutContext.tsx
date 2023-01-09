@@ -13,7 +13,7 @@ const LayoutProveider: React.FC<{ children: ReactNode }> = ({ children }) => {
 			<Head>
 				<title>Meu Açai</title>
 			</Head>
-			{children}
+			<div className="min-h-100vh bg-primary">{children}</div>
 		</LayoutContext.Provider>
 	);
 };

@@ -1,7 +1,8 @@
 import React from "react";
+import Building from "../components/Building";
 
 const ForgotPassword = () => {
-	return <div>ForgotPassword</div>;
+	return <Building />;
 };
 
 export default ForgotPassword;
