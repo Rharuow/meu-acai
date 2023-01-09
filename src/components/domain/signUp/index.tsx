@@ -24,7 +24,7 @@ const SignUp = () => {
 						<Form>
 							<Form.Group className="mb-3">
 								<Form.Label>Telefone</Form.Label>
-								<InputMask className="form-control" mask="+55(099)9999-9999" />
+								<InputMask className="form-control" mask="+55(099)99999-9999" />
 							</Form.Group>
 							<Form.Group className="mb-3">
 								<Form.Label>Endereço</Form.Label>
