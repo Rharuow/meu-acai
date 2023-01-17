@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { UserMoked } from "../../../../entities/user";
+import { UserMoked } from "../../../../entities/User";
 
 const Wallet = () => {
 	return (

@@ -1,116 +1,115 @@
-export type Options = {
-	"M&M": {
-		id: 1;
-		value: 2;
-	};
-	"Mousse Morango": {
-		id: 2;
-		value: 2;
-	};
-	Ovomaltine: {
-		id: 3;
-		value: 1;
-	};
-	"Choco Power": {
-		id: 4;
-		value: 1;
-	};
-	"Leite em pó": {
-		id: 5;
-		value: 1;
-	};
-	"Farinha Lactea": {
-		id: 6;
-		value: 1;
-	};
-	Granola: {
-		id: 7;
-		value: 1;
-	};
-	Jujuba: {
-		id: 8;
-		value: 1;
-	};
-	Banana: {
-		id: 9;
-		value: 1;
-	};
-	Paçoquinha: {
-		id: 10;
-		value: 1;
-	};
-	Coco: {
-		id: 11;
-		value: 1;
-	};
-	"Amendoim Triturado": {
-		id: 12;
-		value: 1;
-	};
-	Fini: {
-		id: 13;
-		value: 2;
-	};
-	"Leite Moça": {
-		id: 14;
-		value: 2;
-	};
-	Nutela: {
-		id: 15;
-		value: 3;
-	};
-	"Calda de Morando": {
-		id: 16;
-		value: 2;
-	};
-	"Calda de Chocolate": {
-		id: 17;
-		value: 2;
-	};
-	Oreo: {
-		id: 18;
-		value: 2;
-	};
-	"Gotas de Chocolate": {
-		id: 19;
-		value: 1;
-	};
+import { Entity } from "./Entity";
+
+export interface Option extends Entity {
+	name: string;
+	value: number;
+	amount: number;
+	unit: string;
+}
+
+export type Options = Array<Option>;
+
+export type Cream = {
+	id: string;
+	name: string;
+	amount: number;
+	unit: string;
 };
 
-export type Creams =
-	| "Açai"
-	| "Cupuaçu"
-	| "Ninho"
-	| "Oreo"
-	| "Ovomaltine"
-	| "Ninho Trufado"
-	| "Amendoim e Castanha";
+export type Creams = Array<Cream>;
 
 export type Size = {
+	id: string;
+	name: string;
+};
+
+export type Sizes = {
 	P: {
 		value: 10;
-		creams: [Creams, Creams];
-		options: [Options | Options | Options];
+		creams: [Cream, Cream];
+		options: [Option, Option, Option];
 	};
 	M: {
 		value: 13;
 		creams: [Creams, Creams];
-		options: [Options | Options | Options];
+		options: [Option, Option, Option];
 	};
 	G: {
 		value: 16;
 		creams: [Creams, Creams];
-		options: [Options | Options | Options | Options];
+		options: [Option, Option, Option, Option];
 	};
 	GG: {
 		value: 19;
 		creams: [Creams, Creams, Creams];
-		options: [Options | Options | Options | Options | Options];
+		options: [Option, Option, Option, Option, Option];
 	};
 };
 
 export type Product = {
 	id: string;
 	size: Size;
-	extras?: Array<Options>;
+	extras?: Options;
 };
+
+export const mockedOptions: Options = [
+	{
+		name: "M&M",
+		id: 1,
+		value: 2,
+		amount: 0,
+		unit: "Pacotes",
+	},
+	{
+		name: "Mousse Morango",
+		id: 2,
+		value: 2,
+		amount: 0,
+		unit: "Morangos",
+	},
+	{
+		name: "Ovomaltine",
+		id: 3,
+		value: 1,
+		amount: 0,
+		unit: "Pacotes",
+	},
+	{
+		name: "Choco Power",
+		id: 4,
+		value: 1,
+		amount: 0,
+		unit: "Pacotes",
+	},
+	{
+		name: "Leite em pó",
+		id: 5,
+		value: 1,
+		amount: 0,
+		unit: "Sacos",
+	},
+	{
+		name: "Farinha Lactea",
+		id: 6,
+		value: 1,
+		amount: 0,
+		unit: "Pacotes",
+	},
+	{
+		name: "Granola",
+		id: 7,
+		value: 1,
+		amount: 0,
+		unit: "gramas",
+	},
+];
+
+export const mockedCreams: Creams = [
+	{ name: "Açai", id: "1", amount: 3, unit: "Litros" },
+	{ name: "Cupuaçu", id: "1", amount: 2, unit: "Litros" },
+	{ name: "Ninho", id: "1", amount: 2, unit: "Pacotes" },
+	{ name: "Oreo", id: "1", amount: 4, unit: "Caixa" },
+	{ name: "Ovomaltine", id: "1", amount: 1, unit: "Litros" },
+	{ name: "Ninho Trufa", id: "1", amount: 2, unit: "Litros" },
+	{ name: "Amendoim e Castanha", id: "1", amount: 3, unit: "Litros" },
+];
