@@ -59,7 +59,11 @@ const Home = () => {
 								/>
 							</Form.Group>
 							<Form.Group className="d-flex flex-wrap justify-content-center">
-								<Button type="submit" className="mb-1" disabled={!hasData}>
+								<Button
+									type="submit"
+									className="mb-1"
+									disabled={!hasData && process.env.NODE_ENV !== "development"}
+								>
 									Entrar
 								</Button>
 								<div className="w-100 text-center">

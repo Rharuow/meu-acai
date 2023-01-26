@@ -21,8 +21,9 @@ const Body = () => {
 		<div className="d-flex p-3 align-items-center flex-wrap flex-grow-1">
 			<div className="w-100">
 				<Button
+					size="lg"
 					variant="secondary"
-					className="rounded-0 w-100 rounded-top"
+					className="rounded-0 border-bottom w-100 rounded-top"
 					onClick={() => setOrderOpen((prevState) => !prevState)}
 					aria-controls="order-collapse"
 					aria-expanded={orderOpen}
@@ -35,8 +36,9 @@ const Body = () => {
 					</div>
 				</Collapse>
 				<Button
+					size="lg"
 					variant="secondary"
-					className="rounded-0 w-100"
+					className="rounded-0 border-bottom w-100"
 					onClick={() => setHistoricOpen((prevState) => !prevState)}
 					aria-controls="historic-collapse"
 					aria-expanded={historicOpen}
@@ -49,6 +51,7 @@ const Body = () => {
 					</div>
 				</Collapse>
 				<Button
+					size="lg"
 					variant="secondary"
 					className={`w-100 rounded-0 ${walletOpen ? " " : "rounded-bottom"}`}
 					onClick={() => setWalletOpen((prevState) => !prevState)}
