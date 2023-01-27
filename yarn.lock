@@ -1800,6 +1800,20 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
+pix-react@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/pix-react/-/pix-react-1.0.4.tgz#67db4df94f33aa51d1c77a08034acbac4924b9b2"
+  integrity sha512-cT4ftz4r0OCOYo0X93HkJ2/Oi0v9W3qIwBUVuVRJgltWBJrUciEzGmqbtVx45JLfcrIy5GbxmZZ1cLDoh8bE2Q==
+  dependencies:
+    polycrc "^1.1.1"
+    qrcode.react "^3.1.0"
+    react ">=18.2"
+
+polycrc@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/polycrc/-/polycrc-1.1.1.tgz#74404cc6443ca237f902c6df43233cff9ba33ca9"
+  integrity sha512-bfvt5BA/1e3e5RhBmmYVYED3PRddGN0j+lAed5PmnLWrVCkYEsltsfZLuKgtmUz1OEvPBAZlgWfoEpUTN/po6Q==
+
 postcss-value-parser@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz#723c09920836ba6d3e5af019f92bc0971c02e514"
@@ -1849,6 +1863,11 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+
+qrcode.react@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-3.1.0.tgz#5c91ddc0340f768316fbdb8fff2765134c2aecd8"
+  integrity sha512-oyF+Urr3oAMUG/OiOuONL3HXM+53wvuH3mtIWQrYmsXoAq0DkvZp2RYUWFSMFtbdOpuS++9v+WAkzNVkMlNW6Q==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
@@ -1927,7 +1946,7 @@ react-transition-group@^4.4.2:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@18.2.0:
+react@18.2.0, react@>=18.2:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
