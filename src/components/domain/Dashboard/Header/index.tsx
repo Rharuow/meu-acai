@@ -10,10 +10,10 @@ const Header = () => {
 			</h1>
 			<div className="d-flex flex-column align-items-center flex-grow-1">
 				<span className="text-primary-dark">
-					<i className="fa fa-home"></i> Casa {UserMoked.address.house}
+					<i className="fa fa-home"></i> {UserMoked.address.house}
 				</span>
 				<span className="text-primary-dark">
-					<i className="fa fa-th-large"></i> Quadra {UserMoked.address.square}
+					<i className="fa fa-th-large"></i> {UserMoked.address.square}
 				</span>
 			</div>
 			<div className="d-flex">
