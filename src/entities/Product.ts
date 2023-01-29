@@ -18,33 +18,35 @@ export type Cream = {
 
 export type Creams = Array<Cream>;
 
-export type Size = {
-	id: string;
-	name: string;
-};
-
-export type Sizes = {
-	P: {
-		value: 10;
-		creams: [Cream, Cream];
-		options: [Option, Option, Option];
-	};
-	M: {
-		value: 13;
-		creams: [Creams, Creams];
-		options: [Option, Option, Option];
-	};
-	G: {
-		value: 16;
-		creams: [Creams, Creams];
-		options: [Option, Option, Option, Option];
-	};
-	GG: {
-		value: 19;
-		creams: [Creams, Creams, Creams];
-		options: [Option, Option, Option, Option, Option];
-	};
-};
+export type Size =
+	| {
+			P: {
+				value: 10;
+				creams: [Cream, Cream];
+				options: [Option, Option, Option];
+			};
+	  }
+	| {
+			M: {
+				value: 13;
+				creams: [Creams, Creams];
+				options: [Option, Option, Option];
+			};
+	  }
+	| {
+			G: {
+				value: 16;
+				creams: [Creams, Creams];
+				options: [Option, Option, Option, Option];
+			};
+	  }
+	| {
+			GG: {
+				value: 19;
+				creams: [Creams, Creams, Creams];
+				options: [Option, Option, Option, Option, Option];
+			};
+	  };
 
 export type Product = {
 	id: string;

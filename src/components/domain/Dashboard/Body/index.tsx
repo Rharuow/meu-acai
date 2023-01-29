@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Collapse } from "react-bootstrap";
 import { useLayoutContext } from "../../../../context/LayoutContext";
-import Wallet from "../Walet";
+import Wallet from "../Wallet";
 import Historic from "./Historic";
 import Order from "./Order";
 
