@@ -18,39 +18,43 @@ export type Cream = {
 
 export type Creams = Array<Cream>;
 
+export enum SizeEnum {
+	"P",
+	"M",
+	"G",
+	"GG",
+}
+
 export type Size =
 	| {
-			P: {
-				value: 10;
-				creams: [Cream, Cream];
-				options: [Option, Option, Option];
-			};
+			name: "P";
+			value: 10;
+			creams: [Cream, Cream];
+			options: [Option, Option, Option];
 	  }
 	| {
-			M: {
-				value: 13;
-				creams: [Creams, Creams];
-				options: [Option, Option, Option];
-			};
+			name: "M";
+			value: 13;
+			creams: [Creams, Creams];
+			options: [Option, Option, Option];
 	  }
 	| {
-			G: {
-				value: 16;
-				creams: [Creams, Creams];
-				options: [Option, Option, Option, Option];
-			};
+			name: "G";
+			value: 16;
+			creams: [Creams, Creams];
+			options: [Option, Option, Option, Option];
 	  }
 	| {
-			GG: {
-				value: 19;
-				creams: [Creams, Creams, Creams];
-				options: [Option, Option, Option, Option, Option];
-			};
+			name: "GG";
+			value: 19;
+			creams: [Creams, Creams, Creams];
+			options: [Option, Option, Option, Option, Option];
 	  };
 
 export type Product = {
-	id: string;
+	id?: string;
 	size: Size;
+	value: number;
 	extras?: Options;
 };
 

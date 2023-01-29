@@ -50,7 +50,7 @@ const Body = () => {
 						<Historic />
 					</div>
 				</Collapse>
-				<Button
+				{/* <Button
 					size="lg"
 					variant="secondary"
 					className={`w-100 rounded-0 ${walletOpen ? " " : "rounded-bottom"}`}
@@ -67,7 +67,7 @@ const Body = () => {
 					>
 						<Wallet />
 					</div>
-				</Collapse>
+				</Collapse> */}
 			</div>
 		</div>
 	);
