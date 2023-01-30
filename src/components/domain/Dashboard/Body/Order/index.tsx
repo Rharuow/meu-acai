@@ -1,30 +1,24 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import { Product, SizeEnum } from "../../../../../entities/Product";
+import {
+	Product,
+	mockedSizes,
+	Creams,
+	mockedCreams,
+} from "../../../../../entities/Product";
+import Cream from "./Cream";
+import Size from "./Size";
 
 const Order = () => {
 	const [order, setOrder] = useState<Product>();
-
-	const sizes = [
-		...Object.values(SizeEnum).filter((s) => typeof s === "string"),
-	];
+	const [creams, setCreams] = useState<Creams | Array<null>>([]);
 
 	return (
 		<div className="d-flex py-2 px-3 flex-wrap">
-			<div className="w-100 mb-1">
-				<p className="fs-6 fw-bold mb-0">Tamanho</p>
-			</div>
-			<div className="d-flex justify-content-around w-100">
-				{sizes.map((sizeEnum) => (
-					<Form.Check
-						key={sizeEnum}
-						type="radio"
-						name="size"
-						onClick={() => console.log("dasdnsia")}
-						label={sizeEnum}
-					/>
-				))}
-			</div>
+			<Size setOrder={setOrder} order={order} />
+
+			<Cream order={order} />
+
 			<div className="w-100 mb-1">
 				<p className="fs-6 fw-bold mb-0">
 					Valor: R${" "}
