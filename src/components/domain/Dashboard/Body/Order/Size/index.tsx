@@ -4,7 +4,6 @@ import { mockedSizes, Product } from "../../../../../../entities/Product";
 
 const Size: React.FC<{
 	setOrder: React.Dispatch<React.SetStateAction<Product | undefined>>;
-	order: Product | undefined;
 }> = ({ setOrder }) => {
 	return (
 		<>

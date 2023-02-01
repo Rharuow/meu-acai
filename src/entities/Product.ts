@@ -68,12 +68,12 @@ export type Product = {
 
 export const mockedCreams: Creams = [
 	{ name: "Açai", id: "1", amount: 3, unit: "Litros" },
-	{ name: "Cupuaçu", id: "1", amount: 2, unit: "Litros" },
-	{ name: "Ninho", id: "1", amount: 2, unit: "Pacotes" },
-	{ name: "Oreo", id: "1", amount: 4, unit: "Caixa" },
-	{ name: "Ovomaltine", id: "1", amount: 1, unit: "Litros" },
-	{ name: "Ninho Trufa", id: "1", amount: 2, unit: "Litros" },
-	{ name: "Amendoim e Castanha", id: "1", amount: 3, unit: "Litros" },
+	{ name: "Cupuaçu", id: "2", amount: 2, unit: "Litros" },
+	{ name: "Ninho", id: "3", amount: 2, unit: "Pacotes" },
+	{ name: "Oreo", id: "4", amount: 4, unit: "Caixa" },
+	{ name: "Ovomaltine", id: "5", amount: 1, unit: "Litros" },
+	{ name: "Ninho Trufa", id: "6", amount: 2, unit: "Litros" },
+	{ name: "Amendoim e Castanha", id: "7", amount: 3, unit: "Litros" },
 ];
 
 export const mockedSizes: Array<Size> = [
@@ -118,7 +118,7 @@ export const mockedOptions: Options = [
 	{
 		name: "Mousse Morango",
 		id: "2",
-		value: 2,
+		value: 2.5,
 		amount: 0,
 		unit: "Morangos",
 	},
