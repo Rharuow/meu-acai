@@ -1,5 +1,6 @@
 import React from "react";
 import { Form } from "react-bootstrap";
+
 import { mockedSizes, Product } from "../../../../../../entities/Product";
 
 const Size: React.FC<{

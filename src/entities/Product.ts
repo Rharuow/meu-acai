@@ -62,6 +62,8 @@ export type Size = {
 export type Product = {
 	id?: string;
 	size: Size;
+	creams: Creams;
+	options?: Options;
 	value: number;
 	extras?: Options;
 };
