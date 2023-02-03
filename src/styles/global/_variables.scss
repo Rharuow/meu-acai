@@ -4,6 +4,7 @@ $primary: #46295a;
 $secondary: #ffccff;
 $primary-dark: darken($primary, 0.5);
 $secondary-dark: darken($secondary, 0.5);
+$danger: #ff4136;
 
 $fa-font-path: "~font-awesome/fonts";
 
@@ -32,6 +33,7 @@ $grays: (
 $theme-colors: (
 	"primary": $primary,
 	"secondary": $secondary,
+	"danger": $danger,
 );
 
 $custom-colors: (

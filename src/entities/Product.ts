@@ -30,7 +30,7 @@ export type Size = {
 	name: SizeEnum;
 	value: number;
 	amountCreams: number;
-	amoutnOptions: number;
+	amountOptions: number;
 };
 
 // export type Size =
@@ -64,8 +64,17 @@ export type Product = {
 	size: Size;
 	creams: Creams;
 	options?: Options;
-	value: number;
 	extras?: Options;
+	value: number;
+};
+
+export type Order = {
+	id?: string;
+	size: Size;
+	creams?: Creams;
+	options?: Options;
+	extras?: Options;
+	value: number;
 };
 
 export const mockedCreams: Creams = [
@@ -83,28 +92,28 @@ export const mockedSizes: Array<Size> = [
 		id: "1",
 		name: SizeEnum.P,
 		amountCreams: 2,
-		amoutnOptions: 3,
+		amountOptions: 3,
 		value: 10,
 	},
 	{
 		id: "2",
 		name: SizeEnum.M,
 		amountCreams: 2,
-		amoutnOptions: 3,
+		amountOptions: 3,
 		value: 13,
 	},
 	{
 		id: "3",
 		name: SizeEnum.G,
 		amountCreams: 2,
-		amoutnOptions: 4,
+		amountOptions: 4,
 		value: 16,
 	},
 	{
 		id: "4",
 		name: SizeEnum.GG,
 		amountCreams: 3,
-		amoutnOptions: 5,
+		amountOptions: 5,
 		value: 19,
 	},
 ];

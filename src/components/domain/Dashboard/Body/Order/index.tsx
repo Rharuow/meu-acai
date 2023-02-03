@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import Switch from "react-switch";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 
-import { Product } from "../../../../../entities/Product";
+import { Order } from "../../../../../entities/Product";
 import Cream from "./Cream";
 import Extras from "./Extra";
 import Option from "./Option";
@@ -12,9 +12,15 @@ import Size from "./Size";
 const Order = () => {
 	const methods = useForm();
 
-	const [order, setOrder] = useState<Product>();
+	const [order, setOrder] = useState<Order>();
 
 	const [hasExtra, setHasExtra] = useState(false);
+
+	const orderWithoutCream = !order || !order.creams || order.creams?.length < 1;
+
+	const orderWithoutSize = !order;
+
+	const orderIsInvalid = orderWithoutCream || orderWithoutSize;
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -28,7 +34,7 @@ const Order = () => {
 					<div className="d-flex py-2 px-3 flex-wrap">
 						<Size setOrder={setOrder} />
 
-						<Cream order={order} />
+						<Cream order={order} setOrder={setOrder} />
 
 						<Option order={order} />
 
@@ -55,8 +61,17 @@ const Order = () => {
 							</p>
 						</div>
 
-						<div className="w-100 d-flex justify-content-end">
-							<Button type="submit">Pedir</Button>
+						<div className="w-100 d-flex justify-content-end flex-wrap">
+							<Button type="submit" disabled={orderIsInvalid}>
+								Pedir
+							</Button>
+							{orderIsInvalid && (
+								<div className="w-100 d-flex justify-content-end">
+									<small className="text-danger">
+										Escolha um {orderWithoutSize ? "tamanho" : "creme"}
+									</small>
+								</div>
+							)}
 						</div>
 					</div>
 				</Form>

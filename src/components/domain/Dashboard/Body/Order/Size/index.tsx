@@ -1,10 +1,10 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-import { mockedSizes, Product } from "../../../../../../entities/Product";
+import { mockedSizes, Order } from "../../../../../../entities/Product";
 
 const Size: React.FC<{
-	setOrder: React.Dispatch<React.SetStateAction<Product | undefined>>;
+	setOrder: React.Dispatch<React.SetStateAction<Order | undefined>>;
 }> = ({ setOrder }) => {
 	return (
 		<>
