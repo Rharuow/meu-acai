@@ -62,7 +62,10 @@ const Order = () => {
 							<p className="fs-6 fw-bold mb-0">
 								Valor: R${" "}
 								{order
-									? order.value.toLocaleString("pt-BR", { currency: "BRL" })
+									? order.value.toLocaleString("pt-BR", {
+											currency: "BRL",
+											minimumFractionDigits: 2,
+									  })
 									: "0,00"}
 							</p>
 						</div>
