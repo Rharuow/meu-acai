@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-	mockedOptions,
+	mockedToppings,
 	Toppings,
 	Topping,
 	Order,
@@ -48,7 +48,7 @@ const Extras: React.FC<{
 			<div className="w-100 mb-1">
 				<p className="fs-6 fw-bold mb-0">Adicione os extras:</p>
 			</div>
-			{mockedOptions.map((topping) => (
+			{mockedToppings.map((topping) => (
 				<div className="w-100" key={topping.id}>
 					<Numeric
 						className="me-1"
