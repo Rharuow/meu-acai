@@ -182,8 +182,8 @@ export const mockedExtras: Toppings = [
 
 export const mockedOrder: Order = {
 	id: "1",
-	creams: mockedCreams,
-	extras: [mockedToppings[0], mockedToppings[1]],
+	creams: [mockedCreams[0], mockedCreams[1]],
+	extras: [mockedToppings[2], mockedToppings[3]],
 	size: mockedSizes[0],
 	toppings: [mockedToppings[0], mockedToppings[1]],
 	value:
