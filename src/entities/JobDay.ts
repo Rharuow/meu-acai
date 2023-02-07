@@ -1,7 +1,7 @@
 export type JobDay = {
 	id: string;
-	date: Date;
+	date: string;
 	status: "On" | "Off" | "Pending";
-	started_at: Date;
-	finished_at: Date;
+	started_at: string;
+	finished_at: string;
 };

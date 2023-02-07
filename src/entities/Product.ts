@@ -18,34 +18,18 @@ export type Cream = {
 
 export type Creams = Array<Cream>;
 
-export enum SizeEnum {
-	"P" = "P",
-	"M" = "M",
-	"G" = "G",
-	"GG" = "GG",
-}
-
 export type Size = {
 	id: string;
-	name: SizeEnum;
+	name: string;
 	value: number;
 	amountCreams: number;
 	amountOptions: number;
 };
 
-export type Product = {
-	id?: string;
-	size: Size;
-	creams: Creams;
-	toppings?: Toppings;
-	extras?: Toppings;
-	value: number;
-};
-
 export type Order = {
 	id?: string;
 	size: Size;
-	creams?: Creams;
+	creams: Creams;
 	toppings?: Toppings;
 	extras?: Toppings;
 	value: number;
@@ -64,28 +48,28 @@ export const mockedCreams: Creams = [
 export const mockedSizes: Array<Size> = [
 	{
 		id: "1",
-		name: SizeEnum.P,
+		name: "P",
 		amountCreams: 2,
 		amountOptions: 3,
 		value: 10,
 	},
 	{
 		id: "2",
-		name: SizeEnum.M,
+		name: "M",
 		amountCreams: 2,
 		amountOptions: 3,
 		value: 13,
 	},
 	{
 		id: "3",
-		name: SizeEnum.G,
+		name: "G",
 		amountCreams: 2,
 		amountOptions: 4,
 		value: 16,
 	},
 	{
 		id: "4",
-		name: SizeEnum.GG,
+		name: "GG",
 		amountCreams: 3,
 		amountOptions: 5,
 		value: 19,

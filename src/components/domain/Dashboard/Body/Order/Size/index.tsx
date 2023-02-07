@@ -21,6 +21,7 @@ const Size: React.FC<{
 							setOrder({
 								size,
 								value: size.value,
+								creams: [],
 							});
 						}}
 						label={size.name}
