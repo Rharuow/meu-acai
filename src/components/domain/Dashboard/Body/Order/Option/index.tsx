@@ -2,7 +2,10 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import { mockedOptions, Order } from "../../../../../../entities/Product";
 
-const Option: React.FC<{ order: Order | undefined }> = ({ order }) => {
+const Option: React.FC<{
+	order: Order | undefined;
+	setOrder: React.Dispatch<React.SetStateAction<Order | undefined>>;
+}> = ({ order, setOrder }) => {
 	return order && order.size && order.size.amountOptions ? (
 		<>
 			<div className="w-100 mb-1">

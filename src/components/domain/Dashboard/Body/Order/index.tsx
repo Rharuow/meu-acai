@@ -36,7 +36,7 @@ const Order = () => {
 
 						<Cream order={order} setOrder={setOrder} />
 
-						<Option order={order} />
+						<Option order={order} setOrder={setOrder} />
 
 						{order && (
 							<div className="my-3">
@@ -51,7 +51,7 @@ const Order = () => {
 							</div>
 						)}
 
-						{hasExtra && <Extras order={order} />}
+						{hasExtra && <Extras order={order} setOrder={setOrder} />}
 						<div className="w-100 mb-1">
 							<p className="fs-6 fw-bold mb-0">
 								Valor: R${" "}
