@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 
 import {
@@ -12,6 +12,8 @@ const Cream: React.FC<{
 	setOrder: React.Dispatch<React.SetStateAction<Order | undefined>>;
 }> = ({ order, setOrder }) => {
 	const [creams, setCreams] = useState<Creams>([]);
+
+	const checkboxsRef = useRef(new Array());
 
 	useEffect(() => {
 		setOrder(
@@ -33,10 +35,15 @@ const Cream: React.FC<{
 					{order.size.amountCreams > 1 ? "s:" : ":"}
 				</p>
 			</div>
-			{mockedCreams.map((cream) => (
+			{mockedCreams.map((cream, index) => (
 				<div className="w-100" key={cream.id}>
 					<Form.Check
+						ref={(element: any) => checkboxsRef.current.push(element)}
 						type="checkbox"
+						disabled={
+							creams.length >= order.size.amountCreams &&
+							!checkboxsRef.current[index].checked
+						}
 						onChange={(e: any) => {
 							setCreams((prevState) => {
 								if (e.target.checked) {

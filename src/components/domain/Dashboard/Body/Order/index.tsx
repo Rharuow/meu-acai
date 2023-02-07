@@ -8,6 +8,7 @@ import Cream from "./Cream";
 import Extras from "./Extra";
 import Option from "./Option";
 import Size from "./Size";
+import Swal from "sweetalert2";
 
 const Order = () => {
 	const methods = useForm();
@@ -24,6 +25,11 @@ const Order = () => {
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		Swal.fire({
+			icon: "success",
+			title: "Obrigado!",
+			text: "Seu pedido será preparado!",
+		});
 		console.log(order);
 	};
 
