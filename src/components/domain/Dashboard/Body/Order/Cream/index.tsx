@@ -11,7 +11,9 @@ const Cream: React.FC<{
 	order: Order | undefined;
 	setOrder: React.Dispatch<React.SetStateAction<Order | undefined>>;
 }> = ({ order, setOrder }) => {
-	const [creams, setCreams] = useState<Creams>([]);
+	const [creams, setCreams] = useState<Creams>(
+		order && order.creams ? order.creams : []
+	);
 
 	const checkboxsRef = useRef(new Array());
 
@@ -25,6 +27,11 @@ const Cream: React.FC<{
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [creams]);
+
+	useEffect(() => {
+		setCreams([]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [order?.size]);
 
 	return order && order.size && order.size.amountCreams ? (
 		<>
@@ -44,6 +51,7 @@ const Cream: React.FC<{
 							creams.length >= order.size.amountCreams &&
 							!checkboxsRef.current[index].checked
 						}
+						checked={creams.map((cr) => cr.id).includes(cream.id)}
 						onChange={(e: any) => {
 							setCreams((prevState) => {
 								if (e.target.checked) {

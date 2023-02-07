@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import {
-	mockedOptions,
-	Options,
+	mockedToppings,
+	Toppings,
 	Order,
 } from "../../../../../../entities/Product";
 
-const Option: React.FC<{
+const Topping: React.FC<{
 	order: Order | undefined;
 	setOrder: React.Dispatch<React.SetStateAction<Order | undefined>>;
 }> = ({ order, setOrder }) => {
-	const [options, setOptions] = useState<Options>([]);
+	const [toppings, setToppings] = useState<Toppings>(
+		order && order.toppings ? order.toppings : []
+	);
 
 	const checkboxsRef = useRef(new Array());
 
@@ -19,11 +21,15 @@ const Option: React.FC<{
 			(prevState) =>
 				prevState && {
 					...prevState,
-					options,
+					toppings,
 				}
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [options]);
+	}, [toppings]);
+
+	useEffect(() => {
+		setToppings([]);
+	}, [order?.size]);
 
 	return order && order.size && order.size.amountOptions ? (
 		<>
@@ -34,25 +40,26 @@ const Option: React.FC<{
 					{order.size.amountOptions > 1 ? "ões:" : "ão:"}
 				</p>
 			</div>
-			{mockedOptions.map((option, index) => (
-				<div className="w-100" key={option.id}>
+			{mockedToppings.map((topping, index) => (
+				<div className="w-100" key={topping.id}>
 					<Form.Check
 						type="checkbox"
 						ref={(element: any) => checkboxsRef.current.push(element)}
-						name="option"
+						checked={toppings.map((top) => top.id).includes(topping.id)}
+						name="topping"
 						disabled={
-							options.length >= order.size.amountOptions &&
+							toppings.length >= order.size.amountOptions &&
 							!checkboxsRef.current[index].checked
 						}
 						onChange={(e: any) => {
-							setOptions((prevState) => {
+							setToppings((prevState) => {
 								if (e.target.checked) {
-									return [...prevState, option];
+									return [...prevState, topping];
 								}
-								return prevState.filter((cr) => cr.id !== option.id);
+								return prevState.filter((cr) => cr.id !== topping.id);
 							});
 						}}
-						label={option.name}
+						label={topping.name}
 					/>
 				</div>
 			))}
@@ -62,4 +69,4 @@ const Option: React.FC<{
 	);
 };
 
-export default Option;
+export default Topping;

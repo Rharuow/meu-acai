@@ -1,13 +1,13 @@
 import { Entity } from "./Entity";
 
-export interface Option extends Entity {
+export interface Topping extends Entity {
 	name: string;
 	value: number;
 	amount: number;
 	unit: string;
 }
 
-export type Options = Array<Option>;
+export type Toppings = Array<Topping>;
 
 export type Cream = {
 	id: string;
@@ -33,38 +33,12 @@ export type Size = {
 	amountOptions: number;
 };
 
-// export type Size =
-// 	| {
-// 			name: SizeEnum.P;
-// 			value?: 10;
-// 			creams?: [Cream, Cream];
-// 			options?: [Option, Option, Option];
-// 	  }
-// 	| {
-// 			name: SizeEnum.M;
-// 			value?: 13;
-// 			creams?: [Creams, Creams];
-// 			options?: [Option, Option, Option];
-// 	  }
-// 	| {
-// 			name: SizeEnum.G;
-// 			value?: 16;
-// 			creams?: [Creams, Creams];
-// 			options?: [Option, Option, Option, Option];
-// 	  }
-// 	| {
-// 			name: SizeEnum.GG;
-// 			value?: 19;
-// 			creams?: [Creams, Creams, Creams];
-// 			options?: [Option, Option, Option, Option, Option];
-// 	  };
-
 export type Product = {
 	id?: string;
 	size: Size;
 	creams: Creams;
-	options?: Options;
-	extras?: Options;
+	toppings?: Toppings;
+	extras?: Toppings;
 	value: number;
 };
 
@@ -72,8 +46,8 @@ export type Order = {
 	id?: string;
 	size: Size;
 	creams?: Creams;
-	options?: Options;
-	extras?: Options;
+	toppings?: Toppings;
+	extras?: Toppings;
 	value: number;
 };
 
@@ -118,7 +92,7 @@ export const mockedSizes: Array<Size> = [
 	},
 ];
 
-export const mockedOptions: Options = [
+export const mockedToppings: Toppings = [
 	{
 		name: "M&M",
 		id: "1",

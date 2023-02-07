@@ -6,7 +6,7 @@ import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { Order } from "../../../../../entities/Product";
 import Cream from "./Cream";
 import Extras from "./Extra";
-import Option from "./Option";
+import Topping from "./Topping";
 import Size from "./Size";
 import Swal from "sweetalert2";
 
@@ -42,7 +42,7 @@ const Order = () => {
 
 						<Cream order={order} setOrder={setOrder} />
 
-						<Option order={order} setOrder={setOrder} />
+						<Topping order={order} setOrder={setOrder} />
 
 						{order && (
 							<div className="my-3">
