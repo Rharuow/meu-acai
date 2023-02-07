@@ -127,3 +127,65 @@ export const mockedToppings: Toppings = [
 		unit: "gramas",
 	},
 ];
+
+export const mockedExtras: Toppings = [
+	{
+		name: "M&M",
+		id: "1",
+		value: 2,
+		amount: 0,
+		unit: "Pacotes",
+	},
+	{
+		name: "Mousse Morango",
+		id: "2",
+		value: 2.5,
+		amount: 0,
+		unit: "Morangos",
+	},
+	{
+		name: "Ovomaltine",
+		id: "3",
+		value: 1,
+		amount: 0,
+		unit: "Pacotes",
+	},
+	{
+		name: "Choco Power",
+		id: "4",
+		value: 1,
+		amount: 0,
+		unit: "Pacotes",
+	},
+	{
+		name: "Leite em pó",
+		id: "5",
+		value: 1,
+		amount: 0,
+		unit: "Sacos",
+	},
+	{
+		name: "Farinha Lactea",
+		id: "6",
+		value: 1,
+		amount: 0,
+		unit: "Pacotes",
+	},
+	{
+		name: "Granola",
+		id: "7",
+		value: 1,
+		amount: 0,
+		unit: "gramas",
+	},
+];
+
+export const mockedOrder: Order = {
+	id: "1",
+	creams: mockedCreams,
+	extras: [mockedToppings[0], mockedToppings[1]],
+	size: mockedSizes[0],
+	toppings: [mockedToppings[0], mockedToppings[1]],
+	value:
+		mockedSizes[0].value + mockedToppings[0].value + mockedToppings[1].value,
+};

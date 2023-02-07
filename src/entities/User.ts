@@ -15,7 +15,7 @@ export type User = {
 	created_at: Date;
 };
 
-export const UserMoked: User = {
+export const mockedUser: User = {
 	id: "1",
 	name: "Harysson Soares",
 	phone: "+55084981758502",
