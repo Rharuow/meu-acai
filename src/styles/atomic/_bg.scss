@@ -1,9 +1,9 @@
 @each $key, $color in $colors {
 	.bg-#{$key} {
-		background-color: $color;
+		background-color: $color !important;
 	}
 
 	.bg-#{$key}-hover:hover {
-		background-color: $color;
+		background-color: $color !important;
 	}
 }

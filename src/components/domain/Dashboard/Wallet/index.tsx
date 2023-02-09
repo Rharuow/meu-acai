@@ -5,7 +5,7 @@ import { PixQRCode } from "pix-react";
 import copy from "copy-to-clipboard";
 import { ToastContainer, toast } from "react-toastify";
 
-import { UserMoked } from "../../../../entities/User";
+import { mockedUser } from "../../../../entities/User";
 
 const Wallet = () => {
 	const [show, setShow] = useState(false);
@@ -59,7 +59,7 @@ const Wallet = () => {
 										cidade: `${process.env.NEXT_PUBLIC_PIX_CITY}`,
 										identificador: `${process.env.NEXT_PUBLIC_PIX_IDENTIFIER}`,
 										valor: value,
-										mensagem: `Por favor, despoistar esse valor na minha carteira. (${UserMoked.name})`,
+										mensagem: `Por favor, despoistar esse valor na minha carteira. (${mockedUser.name})`,
 									}}
 									renderAs="svg"
 									size={256}
@@ -94,7 +94,7 @@ const Wallet = () => {
 					)}
 				</Modal.Body>
 			</Modal>
-			<h2>{UserMoked.wallet} R$</h2>
+			<h2>{mockedUser.wallet} R$</h2>
 			<Button onClick={handleClick}>Depositar</Button>
 		</div>
 	);
