@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Button, Collapse } from "react-bootstrap";
 import { useLayoutContext } from "../../../../context/LayoutContext";
 import Wallet from "../Wallet";
-import Historic from "./Historic";
+import Order from "./Order";
 import Product from "./Product";
 
 const Body = () => {
 	const [productOpen, setProductOpen] = useState(false);
-	const [historicOpen, setHistoricOpen] = useState(false);
+	const [OrderOpen, setOrderOpen] = useState(false);
 	const [walletOpen, setWalletOpen] = useState(false);
 
 	const { setClassWrapper } = useLayoutContext();
@@ -39,15 +39,15 @@ const Body = () => {
 					size="lg"
 					variant="secondary"
 					className="rounded-0 border-bottom w-100"
-					onClick={() => setHistoricOpen((prevState) => !prevState)}
+					onClick={() => setOrderOpen((prevState) => !prevState)}
 					aria-controls="historic-collapse"
-					aria-expanded={historicOpen}
+					aria-expanded={OrderOpen}
 				>
 					Histórico
 				</Button>
-				<Collapse in={historicOpen}>
+				<Collapse in={OrderOpen}>
 					<div id="historic-collapse" className="bg-gray-400 w-100">
-						<Historic />
+						<Order />
 					</div>
 				</Collapse>
 				{/* <Button

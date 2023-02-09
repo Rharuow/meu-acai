@@ -88,14 +88,4 @@ export const mockedOrders: Orders = [
 		user: mockedUser,
 		product: mockedOrder,
 	},
-	{
-		id: "7",
-		job_day_id: "1",
-		product_id: "1",
-		user_id: "1",
-		created_at: "12/01/2023",
-		jobDay: mockedJobDay,
-		user: mockedUser,
-		product: mockedOrder,
-	},
 ];
