@@ -1,11 +1,11 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-import { mockedSizes, Order } from "../../../../../../entities/Product";
+import { mockedSizes, Product } from "../../../../../../entities/Product";
 
 const Size: React.FC<{
-	setOrder: React.Dispatch<React.SetStateAction<Order | undefined>>;
-}> = ({ setOrder }) => {
+	setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
+}> = ({ setProduct }) => {
 	return (
 		<>
 			<div className="w-100 mb-1">
@@ -18,7 +18,7 @@ const Size: React.FC<{
 						type="radio"
 						name="size"
 						onClick={() => {
-							setOrder({
+							setProduct({
 								size,
 								value: size.value,
 								creams: [],

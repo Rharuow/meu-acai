@@ -26,7 +26,7 @@ export type Size = {
 	amountOptions: number;
 };
 
-export type Order = {
+export type Product = {
 	id?: string;
 	size: Size;
 	creams: Creams;
@@ -180,7 +180,7 @@ export const mockedExtras: Toppings = [
 	},
 ];
 
-export const mockedOrder: Order = {
+export const mockedOrder: Product = {
 	id: "1",
 	creams: [mockedCreams[0], mockedCreams[1]],
 	extras: [mockedToppings[2], mockedToppings[3]],

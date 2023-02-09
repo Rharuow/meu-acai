@@ -3,21 +3,21 @@ import { Form } from "react-bootstrap";
 import {
 	mockedToppings,
 	Toppings,
-	Order,
+	Product,
 } from "../../../../../../entities/Product";
 
 const Topping: React.FC<{
-	order: Order | undefined;
-	setOrder: React.Dispatch<React.SetStateAction<Order | undefined>>;
-}> = ({ order, setOrder }) => {
+	product: Product | undefined;
+	setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
+}> = ({ product, setProduct }) => {
 	const [toppings, setToppings] = useState<Toppings>(
-		order && order.toppings ? order.toppings : []
+		product && product.toppings ? product.toppings : []
 	);
 
 	const checkboxsRef = useRef(new Array());
 
 	useEffect(() => {
-		setOrder(
+		setProduct(
 			(prevState) =>
 				prevState && {
 					...prevState,
@@ -29,15 +29,15 @@ const Topping: React.FC<{
 
 	useEffect(() => {
 		setToppings([]);
-	}, [order?.size]);
+	}, [product?.size]);
 
-	return order && order.size && order.size.amountOptions ? (
+	return product && product.size && product.size.amountOptions ? (
 		<>
 			<div className="w-100 mb-1">
 				<p className="fs-6 fw-bold mb-0">
-					Escolha{order.size.amountOptions > 1 ? " até " : " "}
-					{order.size.amountOptions} opç
-					{order.size.amountOptions > 1 ? "ões:" : "ão:"}
+					Escolha{product.size.amountOptions > 1 ? " até " : " "}
+					{product.size.amountOptions} opç
+					{product.size.amountOptions > 1 ? "ões:" : "ão:"}
 				</p>
 			</div>
 			{mockedToppings.map((topping, index) => (
@@ -48,7 +48,7 @@ const Topping: React.FC<{
 						checked={toppings.map((top) => top.id).includes(topping.id)}
 						name="topping"
 						disabled={
-							toppings.length >= order.size.amountOptions &&
+							toppings.length >= product.size.amountOptions &&
 							!checkboxsRef.current[index].checked
 						}
 						onChange={(e: any) => {

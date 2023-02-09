@@ -4,21 +4,21 @@ import { Form } from "react-bootstrap";
 import {
 	Creams,
 	mockedCreams,
-	Order,
+	Product,
 } from "../../../../../../entities/Product";
 
 const Cream: React.FC<{
-	order: Order | undefined;
-	setOrder: React.Dispatch<React.SetStateAction<Order | undefined>>;
-}> = ({ order, setOrder }) => {
+	product: Product | undefined;
+	setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
+}> = ({ product, setProduct }) => {
 	const [creams, setCreams] = useState<Creams>(
-		order && order.creams ? order.creams : []
+		product && product.creams ? product.creams : []
 	);
 
 	const checkboxsRef = useRef(new Array());
 
 	useEffect(() => {
-		setOrder(
+		setProduct(
 			(prevState) =>
 				prevState && {
 					...prevState,
@@ -31,15 +31,15 @@ const Cream: React.FC<{
 	useEffect(() => {
 		setCreams([]);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [order?.size]);
+	}, [product?.size]);
 
-	return order && order.size && order.size.amountCreams ? (
+	return product && product.size && product.size.amountCreams ? (
 		<>
 			<div className="w-100 mb-1">
 				<p className="fs-6 fw-bold mb-0">
-					Escolha{order.size.amountCreams > 1 ? " até " : " "}
-					{order.size.amountCreams} Creme
-					{order.size.amountCreams > 1 ? "s:" : ":"}
+					Escolha{product.size.amountCreams > 1 ? " até " : " "}
+					{product.size.amountCreams} Creme
+					{product.size.amountCreams > 1 ? "s:" : ":"}
 				</p>
 			</div>
 			{mockedCreams.map((cream, index) => (
@@ -48,7 +48,7 @@ const Cream: React.FC<{
 						ref={(element: any) => checkboxsRef.current.push(element)}
 						type="checkbox"
 						disabled={
-							creams.length >= order.size.amountCreams &&
+							creams.length >= product.size.amountCreams &&
 							!checkboxsRef.current[index].checked
 						}
 						checked={creams.map((cr) => cr.id).includes(cream.id)}

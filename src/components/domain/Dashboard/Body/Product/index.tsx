@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import Switch from "react-switch";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 
-import { Order } from "../../../../../entities/Product";
+import { Product as ProductType } from "../../../../../entities/Product";
 import Cream from "./Cream";
 import Extras from "./Extra";
 import Topping from "./Topping";
 import Size from "./Size";
 import Swal from "sweetalert2";
 
-const Order = () => {
+const Product = () => {
 	const methods = useForm();
 
-	const [order, setOrder] = useState<Order>();
+	const [product, setProduct] = useState<ProductType>();
 
 	const [hasExtra, setHasExtra] = useState(false);
 
-	const orderWithoutCream = !order || !order.creams || order.creams?.length < 1;
+	const orderWithoutCream =
+		!product || !product.creams || product.creams?.length < 1;
 
-	const orderWithoutSize = !order;
+	const orderWithoutSize = !product;
 
 	const orderIsInvalid = orderWithoutCream || orderWithoutSize;
 
@@ -30,7 +31,7 @@ const Order = () => {
 			title: "Obrigado!",
 			text: "Seu pedido será preparado!",
 		});
-		console.log(order);
+		console.log(product);
 	};
 
 	return (
@@ -38,13 +39,13 @@ const Order = () => {
 			<FormProvider {...methods}>
 				<Form onSubmit={onSubmit}>
 					<div className="d-flex py-2 px-3 flex-wrap">
-						<Size setOrder={setOrder} />
+						<Size setProduct={setProduct} />
 
-						<Cream order={order} setOrder={setOrder} />
+						<Cream product={product} setProduct={setProduct} />
 
-						<Topping order={order} setOrder={setOrder} />
+						<Topping product={product} setProduct={setProduct} />
 
-						{order && (
+						{product && (
 							<div className="my-3">
 								<label className="d-flex align-items-center">
 									<Switch
@@ -57,12 +58,12 @@ const Order = () => {
 							</div>
 						)}
 
-						{hasExtra && <Extras order={order} setOrder={setOrder} />}
+						{hasExtra && <Extras product={product} setProduct={setProduct} />}
 						<div className="w-100 mb-1">
 							<p className="fs-6 fw-bold mb-0">
 								Valor: R${" "}
-								{order
-									? order.value.toLocaleString("pt-BR", {
+								{product
+									? product.value.toLocaleString("pt-BR", {
 											currency: "BRL",
 											minimumFractionDigits: 2,
 									  })
@@ -89,4 +90,4 @@ const Order = () => {
 	);
 };
 
-export default Order;
+export default Product;

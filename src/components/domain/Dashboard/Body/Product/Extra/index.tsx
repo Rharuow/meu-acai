@@ -3,16 +3,16 @@ import {
 	mockedToppings,
 	Toppings,
 	Topping,
-	Order,
+	Product,
 } from "../../../../../../entities/Product";
 import Numeric from "../../../../../Numeric";
 
 const Extras: React.FC<{
-	order: Order | undefined;
-	setOrder: React.Dispatch<React.SetStateAction<Order | undefined>>;
-}> = ({ order, setOrder }) => {
+	product: Product | undefined;
+	setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
+}> = ({ product, setProduct }) => {
 	const [extras, setExtras] = useState<Toppings>(
-		order && order.extras ? order.extras : []
+		product && product.extras ? product.extras : []
 	);
 
 	const handleIncrement = (topping: Topping) => {
@@ -31,7 +31,7 @@ const Extras: React.FC<{
 	};
 
 	useEffect(() => {
-		setOrder((prevState) => {
+		setProduct((prevState) => {
 			if (prevState) {
 				let value = prevState.size.value;
 				extras.forEach((extra) => {
@@ -43,7 +43,7 @@ const Extras: React.FC<{
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [extras]);
 
-	return order && order.size && order.size.amountOptions ? (
+	return product && product.size && product.size.amountOptions ? (
 		<>
 			<div className="w-100 mb-1">
 				<p className="fs-6 fw-bold mb-0">Adicione os extras:</p>

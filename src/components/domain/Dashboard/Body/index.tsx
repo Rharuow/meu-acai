@@ -3,10 +3,10 @@ import { Button, Collapse } from "react-bootstrap";
 import { useLayoutContext } from "../../../../context/LayoutContext";
 import Wallet from "../Wallet";
 import Historic from "./Historic";
-import Order from "./Order";
+import Product from "./Product";
 
 const Body = () => {
-	const [orderOpen, setOrderOpen] = useState(false);
+	const [productOpen, setProductOpen] = useState(false);
 	const [historicOpen, setHistoricOpen] = useState(false);
 	const [walletOpen, setWalletOpen] = useState(false);
 
@@ -24,15 +24,15 @@ const Body = () => {
 					size="lg"
 					variant="secondary"
 					className="rounded-0 border-bottom w-100 rounded-top"
-					onClick={() => setOrderOpen((prevState) => !prevState)}
+					onClick={() => setProductOpen((prevState) => !prevState)}
 					aria-controls="order-collapse"
-					aria-expanded={orderOpen}
+					aria-expanded={productOpen}
 				>
 					Pedir
 				</Button>
-				<Collapse in={orderOpen}>
+				<Collapse in={productOpen}>
 					<div id="order-collapse" className="bg-gray-400 w-100">
-						<Order />
+						<Product />
 					</div>
 				</Collapse>
 				<Button
