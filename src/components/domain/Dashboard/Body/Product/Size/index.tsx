@@ -4,8 +4,9 @@ import { Form } from "react-bootstrap";
 import { mockedSizes, Product } from "../../../../../../entities/Product";
 
 const Size: React.FC<{
+	product: Product | undefined;
 	setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
-}> = ({ setProduct }) => {
+}> = ({ product, setProduct }) => {
 	return (
 		<>
 			<div className="w-100 mb-1">
@@ -18,10 +19,21 @@ const Size: React.FC<{
 						type="radio"
 						name="size"
 						onClick={() => {
+							const value =
+								product && product.extras
+									? size.value +
+									  product.extras.reduce(
+											(accumulator, currentValue) =>
+												accumulator + currentValue.value,
+											0
+									  )
+									: size.value;
+
 							setProduct({
 								size,
-								value: size.value,
+								value,
 								creams: [],
+								extras: product && product.extras ? product.extras : undefined,
 							});
 						}}
 						label={size.name}

@@ -54,13 +54,14 @@ const Numeric: React.FC<{
 					type="number"
 					defaultValue={defaultValue}
 					name={name}
+					disabled
 					{...(min && { min })}
 					{...(max && { max })}
 					ref={numericInput}
 					className={`w-${width}px h-100 text-center ps-3 h-${heigth} ${className}`}
 				/>
 				<Button
-					className="position-absolute h-25px rounded-circle fw-bold z-index-1 w-25px text-center p-0 top-5px"
+					className="position-absolute h-25px rounded-circle fw-bold z-index-1 w-25px text-center p-0 top-5px end-4px"
 					size="sm"
 					disabled={maxDisabled}
 					onClick={() => {
@@ -73,7 +74,7 @@ const Numeric: React.FC<{
 					+
 				</Button>
 				<Button
-					className="position-absolute h-25px rounded-circle fw-bold z-index-1 w-25px p-0 top-5px end-4px"
+					className="position-absolute h-25px rounded-circle fw-bold z-index-1 w-25px p-0 top-5px "
 					size="sm"
 					disabled={minDisabled}
 					onClick={() => {

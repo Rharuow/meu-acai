@@ -39,7 +39,7 @@ const Product = () => {
 			<FormProvider {...methods}>
 				<Form onSubmit={onSubmit}>
 					<div className="d-flex py-2 px-3 flex-wrap">
-						<Size setProduct={setProduct} />
+						<Size product={product} setProduct={setProduct} />
 
 						<Cream product={product} setProduct={setProduct} />
 
