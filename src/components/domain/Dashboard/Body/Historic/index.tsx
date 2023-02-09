@@ -2,37 +2,75 @@ import React, { useState } from "react";
 import { Col } from "react-bootstrap";
 import { Card, Row } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
+import ReactLoading from "react-loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCreditCard, faMoneyBill1 } from "@fortawesome/free-solid-svg-icons";
+import { faPix } from "@fortawesome/free-brands-svg-icons";
 
 import { mockedHistory } from "../../../../../entities/Historic";
 
 const Historic = () => {
 	const [listHistoric, setListHistoric] = useState(
-		mockedHistory.filter((h, index) => index < 5)
+		mockedHistory.filter((h, index) => index < 2)
 	);
 	const [page, setPage] = useState(1);
+	const perPage = 3;
+
+	const getIcon = (text: string) => {
+		if (text === "Espécie")
+			return (
+				<span className="text-white fw-bolder text-truncate">
+					<FontAwesomeIcon icon={faMoneyBill1} inverse /> Espécie
+				</span>
+			);
+		if (text === "Cartão")
+			return (
+				<span className="text-white fw-bolder text-truncate">
+					<div>
+						<FontAwesomeIcon icon={faCreditCard} color="white" inverse />{" "}
+					</div>
+					Cartão
+				</span>
+			);
+		return (
+			<span className="text-white fw-bolder text-truncate">
+				<FontAwesomeIcon icon={faPix} inverse /> Pix
+			</span>
+		);
+	};
 
 	const fetchData = () => {
 		setTimeout(() => {
 			setListHistoric((prevState) => [
 				...prevState,
-				...mockedHistory.filter(
-					(h, index) => index < 5 * (page + 1) && index >= 5 * page
-				),
+				...mockedHistory.filter((h, index) => {
+					console.log("page = ", page);
+					console.log("index = ", index);
+					return index < perPage * (page + 1) && index >= perPage * page;
+				}),
 			]);
-		}, 3000);
-		setPage((prevState) => prevState++);
+		}, 2500);
+		setPage(page + 1);
 	};
+
+	console.log("page = ", page);
+	console.log("mockedHistory.length = ", mockedHistory.length);
+	console.log("listHistoric.length = ", listHistoric.length);
 
 	return (
 		<div className="p-3">
 			<InfiniteScroll
 				dataLength={mockedHistory.length} //This is important field to render the next data
 				next={fetchData}
-				hasMore={true}
-				loader={<h4>Loading...</h4>}
+				hasMore={mockedHistory.length > listHistoric.length}
+				loader={
+					<div className="d-flex justify-content-center">
+						<ReactLoading type="spinningBubbles" color="#46295a" />
+					</div>
+				}
 				endMessage={
 					<p style={{ textAlign: "center" }}>
-						<b>Yay! You have seen it all</b>
+						<b>Todas as compras foram carregadas!</b>
 					</p>
 				}
 			>
@@ -118,9 +156,9 @@ const Historic = () => {
 									<p className="fw-bolder text-white me-2">Pagamento:</p>
 								</Col>
 								<Col xs={5} className="p-0">
-									<p className="fw-bolder text-truncate text-white">
+									<p className="fw-bolder text-white">
 										{historic.payment_method
-											? historic.payment_method
+											? getIcon(historic.payment_method)
 											: "Em Aberto"}
 									</p>
 								</Col>

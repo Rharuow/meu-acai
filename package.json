@@ -9,6 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-brands-svg-icons": "^6.3.0",
+    "@fortawesome/free-regular-svg-icons": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@next/font": "13.0.7",
     "@types/node": "18.11.17",
     "@types/react": "18.0.26",
@@ -28,6 +33,7 @@
     "react-hook-form": "^7.41.5",
     "react-infinite-scroll-component": "^6.1.0",
     "react-input-mask": "^2.0.4",
+    "react-loading": "^2.0.3",
     "react-lottie": "^1.2.3",
     "react-switch": "^7.0.0",
     "react-toastify": "^9.1.1",
