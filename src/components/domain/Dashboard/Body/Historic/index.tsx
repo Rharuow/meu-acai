@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import { Card, Row } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -7,14 +7,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard, faMoneyBill1 } from "@fortawesome/free-solid-svg-icons";
 import { faPix } from "@fortawesome/free-brands-svg-icons";
 
-import { mockedHistory } from "../../../../../entities/Historic";
+import {
+	mockedHistory,
+	Historic as HistoryType,
+} from "../../../../../entities/Historic";
 
 const Historic = () => {
-	const [listHistoric, setListHistoric] = useState(
-		mockedHistory.filter((h, index) => index < 2)
+	const perPage = 2;
+	const [page, setPage] = useState(2);
+	const [listHistoric, setListHistoric] = useState<HistoryType>(
+		mockedHistory.filter((h, index) => index < perPage)
 	);
-	const [page, setPage] = useState(1);
-	const perPage = 3;
 
 	const getIcon = (text: string) => {
 		if (text === "Espécie")
@@ -26,36 +29,33 @@ const Historic = () => {
 		if (text === "Cartão")
 			return (
 				<span className="text-white fw-bolder text-truncate">
-					<div>
-						<FontAwesomeIcon icon={faCreditCard} color="white" inverse />{" "}
-					</div>
-					Cartão
+					<FontAwesomeIcon icon={faCreditCard} /> Cartão
 				</span>
 			);
 		return (
 			<span className="text-white fw-bolder text-truncate">
-				<FontAwesomeIcon icon={faPix} inverse /> Pix
+				<FontAwesomeIcon icon={faPix} /> Pix
 			</span>
 		);
 	};
 
 	const fetchData = () => {
+		setPage((prevState) => prevState + 1);
 		setTimeout(() => {
+			console.log("page = ", page);
 			setListHistoric((prevState) => [
 				...prevState,
-				...mockedHistory.filter((h, index) => {
-					console.log("page = ", page);
-					console.log("index = ", index);
-					return index < perPage * (page + 1) && index >= perPage * page;
-				}),
+				...mockedHistory.filter(
+					(h, index) => index >= perPage * (page - 1) && index < perPage * page
+				),
 			]);
-		}, 2500);
-		setPage(page + 1);
+		}, 1500);
 	};
 
-	console.log("page = ", page);
+	// console.log("page = ", page);
 	console.log("mockedHistory.length = ", mockedHistory.length);
 	console.log("listHistoric.length = ", listHistoric.length);
+	console.log("listHistoric = ", listHistoric);
 
 	return (
 		<div className="p-3">
@@ -68,6 +68,7 @@ const Historic = () => {
 						<ReactLoading type="spinningBubbles" color="#46295a" />
 					</div>
 				}
+				pullDownToRefreshThreshold={50}
 				endMessage={
 					<p style={{ textAlign: "center" }}>
 						<b>Todas as compras foram carregadas!</b>
@@ -82,7 +83,9 @@ const Historic = () => {
 					>
 						<Card.Header>
 							<Card.Title className="d-flex justify-content-center m-0 flex-wrap">
-								<span className="fs-6 text-white">{historic.created_at}</span>
+								<span className="fs-6 text-white">
+									{historic.created_at}({historic.id})
+								</span>
 							</Card.Title>
 						</Card.Header>
 						<Card.Body>

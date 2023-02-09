@@ -7,7 +7,7 @@ export type Historic = Array<{
 	order_id: string;
 	user_id: string;
 	job_day_id: string;
-	payment_method?: "PIX" | "Cartão" | "Espécie" | "Crédito" | "Débito";
+	payment_method?: "PIX" | "Cartão" | "Espécie";
 	payment_date?: string;
 	created_at: string;
 	user: User;
@@ -47,7 +47,7 @@ export const mockedHistory: Historic = [
 		user_id: "1",
 		created_at: "09/01/2023",
 		payment_date: "09/01/2023",
-		payment_method: "Crédito",
+		payment_method: "Cartão",
 		jobDay: mockedJobDay,
 		user: mockedUser,
 		order: mockedOrder,
@@ -59,7 +59,7 @@ export const mockedHistory: Historic = [
 		user_id: "1",
 		created_at: "10/01/2023",
 		payment_date: "10/01/2023",
-		payment_method: "Débito",
+		payment_method: "Cartão",
 		jobDay: mockedJobDay,
 		user: mockedUser,
 		order: mockedOrder,
@@ -78,6 +78,16 @@ export const mockedHistory: Historic = [
 	},
 	{
 		id: "6",
+		job_day_id: "1",
+		order_id: "1",
+		user_id: "1",
+		created_at: "12/01/2023",
+		jobDay: mockedJobDay,
+		user: mockedUser,
+		order: mockedOrder,
+	},
+	{
+		id: "7",
 		job_day_id: "1",
 		order_id: "1",
 		user_id: "1",
