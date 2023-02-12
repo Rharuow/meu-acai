@@ -1,5 +1,5 @@
 import { JobDay, mockedJobDay } from "./JobDay";
-import { mockedOrder, Product } from "./Product";
+import { mockedProduct, Product } from "./Product";
 import { mockedUser, User } from "./User";
 
 export enum OrderStatus {
@@ -38,7 +38,7 @@ export const mockedOrders: Orders = [
 		payment_method: "PIX",
 		jobDay: mockedJobDay,
 		user: mockedUser,
-		product: mockedOrder,
+		product: mockedProduct,
 	},
 	{
 		id: "2",
@@ -51,7 +51,7 @@ export const mockedOrders: Orders = [
 		payment_method: "Cartão",
 		jobDay: mockedJobDay,
 		user: mockedUser,
-		product: mockedOrder,
+		product: mockedProduct,
 	},
 	{
 		id: "3",
@@ -64,7 +64,7 @@ export const mockedOrders: Orders = [
 		payment_method: "Cartão",
 		jobDay: mockedJobDay,
 		user: mockedUser,
-		product: mockedOrder,
+		product: mockedProduct,
 	},
 	{
 		id: "4",
@@ -77,7 +77,7 @@ export const mockedOrders: Orders = [
 		payment_method: "Cartão",
 		jobDay: mockedJobDay,
 		user: mockedUser,
-		product: mockedOrder,
+		product: mockedProduct,
 	},
 	{
 		id: "5",
@@ -90,21 +90,10 @@ export const mockedOrders: Orders = [
 		payment_method: "Espécie",
 		jobDay: mockedJobDay,
 		user: mockedUser,
-		product: mockedOrder,
+		product: mockedProduct,
 	},
 	{
 		id: "6",
-		job_day_id: "1",
-		status: OrderStatus.done,
-		product_id: "1",
-		user_id: "1",
-		created_at: "12/01/2023",
-		jobDay: mockedJobDay,
-		user: mockedUser,
-		product: mockedOrder,
-	},
-	{
-		id: "7",
 		job_day_id: "1",
 		status: OrderStatus.making,
 		product_id: "1",
@@ -112,21 +101,10 @@ export const mockedOrders: Orders = [
 		created_at: "12/01/2023",
 		jobDay: mockedJobDay,
 		user: mockedUser,
-		product: mockedOrder,
+		product: mockedProduct,
 	},
 	{
-		id: "8",
-		job_day_id: "1",
-		status: OrderStatus.waiting,
-		product_id: "1",
-		user_id: "1",
-		created_at: "12/01/2023",
-		jobDay: mockedJobDay,
-		user: mockedUser,
-		product: mockedOrder,
-	},
-	{
-		id: "9",
+		id: "7",
 		job_day_id: "1",
 		status: OrderStatus.delivering,
 		product_id: "1",
@@ -134,6 +112,39 @@ export const mockedOrders: Orders = [
 		created_at: "12/01/2023",
 		jobDay: mockedJobDay,
 		user: mockedUser,
-		product: mockedOrder,
+		product: mockedProduct,
+	},
+	{
+		id: "8",
+		job_day_id: "1",
+		status: OrderStatus.done,
+		product_id: "1",
+		user_id: "1",
+		created_at: "12/01/2023",
+		jobDay: mockedJobDay,
+		user: mockedUser,
+		product: mockedProduct,
+	},
+	{
+		id: "9",
+		job_day_id: "1",
+		status: OrderStatus.waiting,
+		product_id: "1",
+		user_id: "1",
+		created_at: "12/01/2023",
+		jobDay: mockedJobDay,
+		user: mockedUser,
+		product: mockedProduct,
+	},
+	{
+		id: "10",
+		job_day_id: "1",
+		status: OrderStatus.waiting,
+		product_id: "1",
+		user_id: "1",
+		created_at: "12/01/2023",
+		jobDay: mockedJobDay,
+		user: mockedUser,
+		product: mockedProduct,
 	},
 ];

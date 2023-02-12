@@ -21,7 +21,7 @@ const Step: React.FC<{
 			<div className="step-content">
 				<div
 					className={`step-content-bar ${
-						isDone ? "bg-success-dark" : " "
+						isDone ? "bg-success" : "bg-secondary"
 					} overflow-hidden w-${width} h-${height}px rounded`}
 				>
 					<div className="h-100 content-bar-fill"></div>

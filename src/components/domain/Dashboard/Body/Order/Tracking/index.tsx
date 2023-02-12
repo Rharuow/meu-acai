@@ -16,6 +16,10 @@ const Tracking = () => {
 			order.user_id === user.id
 	);
 
+	const ordersInWating = mockedOrders
+		.filter((order) => order.status === OrderStatus.waiting)
+		.map((order, index) => ({ id: order.id, position: index + 1 }));
+
 	const stepIsDone = (status: OrderStatus, currentStatus: OrderStatus) => {
 		if (
 			status === OrderStatus.delivering &&
@@ -43,7 +47,19 @@ const Tracking = () => {
 								minimumFractionDigits: 2,
 							})}
 						</p>
-
+						<div className="d-flex justify-content-between w-100">
+							{order.status === OrderStatus.waiting &&
+								[OrderStatus.waiting].map((status) => (
+									<Step
+										key={status}
+										text={`${glossary.status.pt[status]} (${
+											ordersInWating.find((or) => or.id === order.id)?.position
+										})`}
+										className="w-100 text-center"
+										isCurrent={order.status === status}
+									/>
+								))}
+						</div>
 						<div className="d-flex justify-content-between w-100">
 							{[
 								OrderStatus.making,

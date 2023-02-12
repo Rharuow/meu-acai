@@ -180,7 +180,7 @@ export const mockedExtras: Toppings = [
 	},
 ];
 
-export const mockedOrder: Product = {
+export const mockedProduct: Product = {
 	id: "1",
 	creams: [mockedCreams[0], mockedCreams[1]],
 	extras: [mockedToppings[2], mockedToppings[3]],
