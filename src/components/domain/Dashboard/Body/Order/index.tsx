@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ReactLoading from "react-loading";
+import { useUserContext } from "../../../../../context/UserContext";
 
-import { Orders, mockedOrders } from "../../../../../entities/Order";
+import {
+	Orders,
+	mockedOrders,
+	OrderStatus,
+} from "../../../../../entities/Order";
 import ListOrder from "./List";
 
 const Historic = () => {
@@ -12,6 +17,8 @@ const Historic = () => {
 		mockedOrders.filter((h, index) => index < perPage)
 	);
 
+	const user = useUserContext();
+
 	const fetchData = () => {
 		setPage((prevState) => prevState + 1);
 		console.log("FETCH");
@@ -19,21 +26,27 @@ const Historic = () => {
 			setOrders((prevState) => [
 				...prevState,
 				...mockedOrders.filter(
-					(h, index) => index >= perPage * (page - 1) && index < perPage * page
+					(h, index) =>
+						index >= perPage * (page - 1) &&
+						index < perPage * page &&
+						h.status === OrderStatus.done &&
+						h.user_id === user.id
 				),
 			]);
 		}, 1500);
 	};
-
-	console.log("mockedOrders = ", mockedOrders);
-	console.log("orders = ", orders);
 
 	return (
 		<div className="p-3">
 			<InfiniteScroll
 				dataLength={orders.length}
 				next={fetchData}
-				hasMore={mockedOrders.length > orders.length}
+				hasMore={
+					mockedOrders.filter(
+						(order) =>
+							order.status === OrderStatus.done && order.user_id === user.id
+					).length > orders.length
+				}
 				loader={
 					<div className="d-flex justify-content-center">
 						<ReactLoading type="spinningBubbles" color="#46295a" />

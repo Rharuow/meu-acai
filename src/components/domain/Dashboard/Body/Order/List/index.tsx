@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard, faMoneyBill1 } from "@fortawesome/free-solid-svg-icons";
 import { faPix } from "@fortawesome/free-brands-svg-icons";
 
-import { Orders } from "../../../../../../entities/Order";
+import { Orders, OrderStatus } from "../../../../../../entities/Order";
 
 const ListOrder: React.FC<{ orders: Orders }> = ({ orders }) => {
 	const getIcon = (text: string) => {
@@ -32,7 +32,13 @@ const ListOrder: React.FC<{ orders: Orders }> = ({ orders }) => {
 				<Card
 					key={order.id}
 					className="mb-3"
-					bg={order.payment_date ? "primary-dark" : "danger-dark"}
+					bg={
+						order.payment_date
+							? "primary-dark"
+							: order.status === OrderStatus.making
+							? "warning-dark"
+							: "danger-dark"
+					}
 				>
 					<Card.Header>
 						<Card.Title className="d-flex justify-content-center m-0 flex-wrap">

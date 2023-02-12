@@ -3,11 +3,13 @@ import { Button, Collapse } from "react-bootstrap";
 import { useLayoutContext } from "../../../../context/LayoutContext";
 import Wallet from "../Wallet";
 import Order from "./Order";
+import Tracking from "./Order/Tracking";
 import Product from "./Product";
 
 const Body = () => {
 	const [productOpen, setProductOpen] = useState(false);
-	const [OrderOpen, setOrderOpen] = useState(false);
+	const [orderOpen, setOrderOpen] = useState(false);
+	const [trackingOpen, setTrackingOpen] = useState(false);
 	const [walletOpen, setWalletOpen] = useState(false);
 
 	const { setClassWrapper } = useLayoutContext();
@@ -23,7 +25,7 @@ const Body = () => {
 				<Button
 					size="lg"
 					variant="secondary"
-					className="rounded-0 border-bottom w-100 rounded-top"
+					className="rounded-0 border-bottom w-100 rounded-top fw-bold"
 					onClick={() => setProductOpen((prevState) => !prevState)}
 					aria-controls="order-collapse"
 					aria-expanded={productOpen}
@@ -38,15 +40,30 @@ const Body = () => {
 				<Button
 					size="lg"
 					variant="secondary"
-					className="rounded-0 border-bottom w-100"
+					className="rounded-0 border-bottom w-100 fw-bold"
+					onClick={() => setTrackingOpen((prevState) => !prevState)}
+					aria-controls="tracking-collapse"
+					aria-expanded={trackingOpen}
+				>
+					Acompanhar
+				</Button>
+				<Collapse in={trackingOpen}>
+					<div id="tracking-collapse" className="bg-gray-400 w-100">
+						<Tracking />
+					</div>
+				</Collapse>
+				<Button
+					size="lg"
+					variant="secondary"
+					className="rounded-0 border-bottom w-100 fw-bold"
 					onClick={() => setOrderOpen((prevState) => !prevState)}
-					aria-controls="historic-collapse"
-					aria-expanded={OrderOpen}
+					aria-controls="orders-collapse"
+					aria-expanded={orderOpen}
 				>
 					Histórico
 				</Button>
-				<Collapse in={OrderOpen}>
-					<div id="historic-collapse" className="bg-gray-400 w-100">
+				<Collapse in={orderOpen}>
+					<div id="orders-collapse" className="bg-gray-400 w-100">
 						<Order />
 					</div>
 				</Collapse>
