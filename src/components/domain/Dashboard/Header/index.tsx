@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faHome,
@@ -25,10 +25,24 @@ const Header = () => {
 					{user.address.square}
 				</span>
 			</div>
-			<div className="d-flex">
-				<Button variant="light" className="fs-3">
-					<FontAwesomeIcon icon={faBars} className="text-primary" />
-				</Button>
+			<div className="d-flex align-items-center">
+				<Navbar expand="md" className="">
+					<Navbar.Toggle aria-controls="header-button" />
+					<Navbar.Offcanvas
+						id="header-button"
+						aria-labelledby="header-button-to-control-content"
+						placement="end"
+					>
+						<Offcanvas.Header
+							closeButton
+							className="justify-content-end"
+						></Offcanvas.Header>
+						<Offcanvas.Body className="">
+							<Nav.Link href="#action1">Perfil</Nav.Link>
+							<Nav.Link href="#action1">Pedidos</Nav.Link>
+						</Offcanvas.Body>
+					</Navbar.Offcanvas>
+				</Navbar>
 			</div>
 		</div>
 	);
