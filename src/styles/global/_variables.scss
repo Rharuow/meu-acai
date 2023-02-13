@@ -7,6 +7,13 @@ $success: #198754;
 $info: #0dcaf0;
 $warning: #ffc107;
 
+$primaryLight: lighten($primary, 40%);
+$secondaryLight: lighten($secondary, 10%);
+$dangerLight: lighten($danger, 30%);
+$sucessLight: lighten($success, 10%);
+$infoLight: lighten($info, 10%);
+$warningLight: lighten($warning, 10%);
+
 $primaryDark: darken($primary, 10%);
 $secondaryDark: darken($secondary, 10%);
 $dangerDark: darken($danger, 30%);
@@ -54,6 +61,12 @@ $custom-colors: (
 	"success-dark": $sucessDark,
 	"info-dark": $infoDark,
 	"warning-dark": $warningDark,
+	"primary-light": $primaryLight,
+	"secondary-light": $secondaryLight,
+	"danger-light": $dangerLight,
+	"success-light": $sucessLight,
+	"info-light": $infoLight,
+	"warning-light": $warningLight,
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);

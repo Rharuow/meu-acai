@@ -22,7 +22,6 @@
     "copy-to-clipboard": "^3.3.3",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
-    "font-awesome": "^4.7.0",
     "luxon": "^3.2.1",
     "next": "13.0.7",
     "pix-react": "^1.0.4",

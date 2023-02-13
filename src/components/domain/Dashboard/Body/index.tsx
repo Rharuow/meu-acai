@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Collapse } from "react-bootstrap";
+import { Button, Card, Collapse } from "react-bootstrap";
 import { useContentContext } from "..";
 import { useLayoutContext } from "../../../../context/LayoutContext";
 import Wallet from "../Wallet";
 import Order from "./Order";
 import Tracking from "./Order/Tracking";
 import Product from "./Product";
+import Profile from "./Profile";
 
 const Body = () => {
 	const [productOpen, setProductOpen] = useState(false);
@@ -22,8 +23,8 @@ const Body = () => {
 	});
 
 	return (
-		<div className="d-flex p-3 align-items-center flex-wrap flex-grow-1">
-			{content ? (
+		<div className="d-flex p-3 justify-content-center align-items-center flex-wrap flex-grow-1">
+			{content.orders ? (
 				<div className="w-100">
 					<Button
 						size="lg"
@@ -90,7 +91,7 @@ const Body = () => {
 				</Collapse> */}
 				</div>
 			) : (
-				<div>Perfil</div>
+				<Profile />
 			)}
 		</div>
 	);

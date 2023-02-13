@@ -5,7 +5,7 @@ import Body from "./Body";
 
 type Content = {
 	orders: boolean;
-	perfil: boolean;
+	profile: boolean;
 };
 
 const ContentContext = createContext(
@@ -20,7 +20,7 @@ export const useContentContext = () => useContext(ContentContext);
 const Dashboard = () => {
 	const [content, setContent] = useState<Content>({
 		orders: true,
-		perfil: false,
+		profile: false,
 	});
 	return (
 		<ContentContext.Provider value={{ content, setContent }}>
