@@ -18,13 +18,15 @@ const Profile = () => {
 		name: "members",
 	});
 
+	const onSubmit = (data: any) => {
+		console.log(data);
+	};
+
 	useEffect(() => {
 		members?.forEach((member) => {
 			append({ name: member.name, birthday: member.birthday });
 		});
 	}, []);
-
-	console.log(fields);
 
 	return (
 		<Card bg="secondary">
@@ -33,7 +35,7 @@ const Profile = () => {
 			</Card.Header>
 			<Card.Body>
 				<FormProvider {...methods}>
-					<Form>
+					<Form onSubmit={methods.handleSubmit(onSubmit)}>
 						<Form.Group className="mb-3">
 							<Form.Label>Nome</Form.Label>
 							<Form.Control defaultValue={name} />
@@ -42,15 +44,17 @@ const Profile = () => {
 							<Form.Label>Aniversário</Form.Label>
 							<Form.Control defaultValue={birthday} type="date" />
 						</Form.Group>
+						<p className="fs-4 fw-bold text-primary">Membros</p>
 						<Separator className="mb-3" />
 						{fields &&
 							members &&
 							fields.map((member: any, index) => (
 								<div key={member.id}>
+									{index > 0 && <Separator dashed className="mb-3" />}
 									<Form.Group className="mb-1">
 										<Form.Label>Nome</Form.Label>
 										<Form.Control
-											{...methods.register(`member.${index}.name`)}
+											// {...methods.register(`member.${index}.name`)}
 											placeholder="Digite o nome do membro"
 											defaultValue={member.name}
 										/>
@@ -58,7 +62,7 @@ const Profile = () => {
 									<Form.Group className="mb-1">
 										<Form.Label>Aniversário</Form.Label>
 										<Form.Control
-											{...methods.register(`member.${index}.birthday`)}
+											// {...methods.register(`member.${index}.birthday`)}
 											defaultValue={member.birthday}
 											type="date"
 										/>
@@ -70,12 +74,16 @@ const Profile = () => {
 									>
 										<FontAwesomeIcon size="sm" icon={faTrash} />
 									</Button>
-									<Separator dashed className="mb-3" />
 								</div>
 							))}
 						<Form.Group className="mb-3">
-							<Button onClick={() => append({})}>Adicionar Membro</Button>
+							<Button onClick={() => append({})}>+ Membro</Button>
 						</Form.Group>
+						<Separator className="mb-3" />
+
+						<div className="d-flex w-100 justify-content-end">
+							<Button type="submit">Salvar</Button>
+						</div>
 					</Form>
 				</FormProvider>
 			</Card.Body>

@@ -17,9 +17,9 @@ const Building: React.FC<{
 	title?: string;
 }> = ({ width = 400, height = 400, title = "Em construção" }) => {
 	return (
-		<div className="d-flex justify-content-center flex-column">
+		<div className="d-flex justify-content-center align-items-center flex-column">
 			<Lottie options={defaultOptions} width={width} height={height} />
-			<p>{title}</p>
+			<p className="text-white">{title}</p>
 		</div>
 	);
 };

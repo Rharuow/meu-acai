@@ -7,6 +7,7 @@ import Order from "./Order";
 import Tracking from "./Order/Tracking";
 import Product from "./Product";
 import Profile from "./Profile";
+import Settings from "./Settings";
 
 const Body = () => {
 	const [productOpen, setProductOpen] = useState(false);
@@ -90,8 +91,10 @@ const Body = () => {
 					</div>
 				</Collapse> */}
 				</div>
-			) : (
+			) : content.profile ? (
 				<Profile />
+			) : (
+				<Settings />
 			)}
 		</div>
 	);
