@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Collapse } from "react-bootstrap";
 import { useContentContext } from "..";
-import { useLayoutContext } from "../../../../context/LayoutContext";
 import Wallet from "../Wallet";
 import Order from "./Order";
 import Tracking from "./Order/Tracking";
 import Product from "./Product";
 import Profile from "./Profile";
 import Settings from "./Settings";
+
+import { useLayoutContext } from "@/src/rharuow-admin/context/Layout";
 
 const Body = () => {
 	const [productOpen, setProductOpen] = useState(false);

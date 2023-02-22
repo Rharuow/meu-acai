@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Nav, Navbar, Offcanvas } from "react-bootstrap";
-import { useContentContext } from "../..";
+import { useContentContext } from "../../domain/Dashboard";
 
 const NavbarMenu = () => {
 	const [expanded, setExpanded] = useState(false);

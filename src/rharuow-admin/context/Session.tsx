@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import ReactLoading from "react-loading";
-import { User } from "../entities/User";
+import { User } from "../../entities/User";
 
 interface ISessionContext {
 	sessionLoading: boolean;
@@ -19,10 +19,12 @@ function SessionProvider({ children }: { children: React.ReactNode }) {
 	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState<User>();
 
+	const router = useRouter();
+
 	useEffect(() => {
 		const userCookied = JSON.parse(Cookies.get("user") || "false") as User;
 
-		userCookied && setUser(userCookied);
+		userCookied ? setUser(userCookied) : router.push("/");
 
 		setLoading(false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps

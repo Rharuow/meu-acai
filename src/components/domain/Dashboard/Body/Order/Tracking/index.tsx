@@ -1,9 +1,10 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import { useSessionContext } from "../../../../../../context/SessionContext";
-import { mockedOrders, OrderStatus } from "../../../../../../entities/Order";
-import { glossary } from "../../../../../../utils/glossary";
-import Step from "../../../../../Step";
+
+import { useSessionContext } from "@/src/rharuow-admin/context/Session";
+import { mockedOrders, OrderStatus } from "@/src/entities/Order";
+import { glossary } from "@/src//utils/glossary";
+import Step from "@/src/components/Step";
 
 const Tracking = () => {
 	const { user } = useSessionContext();

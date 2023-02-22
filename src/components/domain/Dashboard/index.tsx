@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
 
-import Header from "./Header";
 import Body from "./Body";
 
 type Content = {
@@ -26,7 +25,6 @@ const Dashboard = () => {
 	});
 	return (
 		<ContentContext.Provider value={{ content, setContent }}>
-			<Header />
 			<Body />
 		</ContentContext.Provider>
 	);

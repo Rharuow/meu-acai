@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faTableCells } from "@fortawesome/free-solid-svg-icons";
 
 import NavbarMenu from "./Navbar";
-import { useSessionContext } from "../../../../context/SessionContext";
+import { useSessionContext } from "@/src/rharuow-admin/context/Session";
 
 const Header = () => {
 	const { user } = useSessionContext();
