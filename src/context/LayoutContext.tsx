@@ -1,5 +1,7 @@
 import Head from "next/head";
 import React, { createContext, ReactNode, useContext, useState } from "react";
+import HomePage from "../pages";
+import { useSessionContext } from "./SessionContext";
 
 interface ILayoutContext {
 	language: "pt-BR" | "US";
@@ -18,6 +20,8 @@ const LayoutProveider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const [theme, setTheme] = useState<"ligth" | "dark">("ligth");
 	const [classWrapper, setClassWrapper] = useState(" ");
 
+	const { user } = useSessionContext();
+
 	return (
 		<LayoutContext.Provider
 			value={{ language, setLanguage, theme, setTheme, setClassWrapper }}
@@ -25,7 +29,9 @@ const LayoutProveider: React.FC<{ children: ReactNode }> = ({ children }) => {
 			<Head>
 				<title>Meu Açai</title>
 			</Head>
-			<div className={`min-h-100vh bg-primary ${classWrapper}`}>{children}</div>
+			<div className={`min-h-100vh bg-primary ${classWrapper}`}>
+				{user ? children : <HomePage />}
+			</div>
 		</LayoutContext.Provider>
 	);
 };

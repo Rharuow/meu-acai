@@ -5,14 +5,14 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 
 config.autoAddCss = false;
 import "../styles/main.scss";
-import UserProvider from "../context/UserContext";
+import SessionProvider from "../context/SessionContext";
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<UserProvider>
+		<SessionProvider>
 			<LayoutProveider>
 				<Component {...pageProps} />
 			</LayoutProveider>
-		</UserProvider>
+		</SessionProvider>
 	);
 }

@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { FormProvider, useForm, useFieldArray } from "react-hook-form";
+import { useSessionContext } from "../../../../../context/SessionContext";
 
-import { useUserContext } from "../../../../../context/UserContext";
 import Separator from "../../../../Separator";
 
 const Profile = () => {
-	const { name, birthday, members } = useUserContext();
+	const { user } = useSessionContext();
 
 	const methods = useForm();
 
@@ -23,7 +23,7 @@ const Profile = () => {
 	};
 
 	useEffect(() => {
-		members?.forEach((member) => {
+		user?.members?.forEach((member) => {
 			append({ name: member.name, birthday: member.birthday });
 		});
 	}, []);
@@ -38,16 +38,16 @@ const Profile = () => {
 					<Form onSubmit={methods.handleSubmit(onSubmit)}>
 						<Form.Group className="mb-3">
 							<Form.Label>Nome</Form.Label>
-							<Form.Control defaultValue={name} />
+							<Form.Control defaultValue={user?.name} />
 						</Form.Group>
 						<Form.Group className="mb-3">
 							<Form.Label>Aniversário</Form.Label>
-							<Form.Control defaultValue={birthday} type="date" />
+							<Form.Control defaultValue={user?.birthday} type="date" />
 						</Form.Group>
 						<p className="fs-4 fw-bold text-primary">Membros</p>
 						<Separator className="mb-3" />
 						{fields &&
-							members &&
+							user?.members &&
 							fields.map((member: any, index) => (
 								<div key={member.id}>
 									{index > 0 && <Separator dashed className="mb-3" />}

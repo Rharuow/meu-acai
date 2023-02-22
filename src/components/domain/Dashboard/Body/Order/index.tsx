@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ReactLoading from "react-loading";
-import { useUserContext } from "../../../../../context/UserContext";
+import { useSessionContext } from "../../../../../context/SessionContext";
 
 import {
 	Orders,
@@ -17,7 +17,7 @@ const Historic = () => {
 		mockedOrders.filter((h, index) => index < perPage)
 	);
 
-	const user = useUserContext();
+	const { user } = useSessionContext();
 
 	const fetchData = () => {
 		setPage((prevState) => prevState + 1);
@@ -30,7 +30,7 @@ const Historic = () => {
 						index >= perPage * (page - 1) &&
 						index < perPage * page &&
 						h.status === OrderStatus.done &&
-						h.user_id === user.id
+						h.user_id === user?.id
 				),
 			]);
 		}, 1500);
@@ -44,7 +44,7 @@ const Historic = () => {
 				hasMore={
 					mockedOrders.filter(
 						(order) =>
-							order.status === OrderStatus.done && order.user_id === user.id
+							order.status === OrderStatus.done && order.user_id === user?.id
 					).length > orders.length
 				}
 				loader={

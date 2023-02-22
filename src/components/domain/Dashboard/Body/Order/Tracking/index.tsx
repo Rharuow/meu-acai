@@ -1,19 +1,19 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import { useUserContext } from "../../../../../../context/UserContext";
+import { useSessionContext } from "../../../../../../context/SessionContext";
 import { mockedOrders, OrderStatus } from "../../../../../../entities/Order";
 import { glossary } from "../../../../../../utils/glossary";
 import Step from "../../../../../Step";
 
 const Tracking = () => {
-	const user = useUserContext();
+	const { user } = useSessionContext();
 
 	const orders = mockedOrders.filter(
 		(order) =>
 			(order.status === OrderStatus.making ||
 				order.status === OrderStatus.waiting ||
 				order.status === OrderStatus.delivering) &&
-			order.user_id === user.id
+			order.user_id === user?.id
 	);
 
 	const ordersInWating = mockedOrders

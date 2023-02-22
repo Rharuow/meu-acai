@@ -1,3 +1,5 @@
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import React from "react";
 import { Button, Card, Form, FormControl } from "react-bootstrap";
@@ -17,7 +19,8 @@ const SignUp = () => {
 					className="d-flex justify-content-center align-items-center"
 					onClick={() => route.back()}
 				>
-					<i className="fs-1 fa fa-angle-left me-2"></i>Voltar
+					<FontAwesomeIcon icon={faAngleLeft} className="me-2" />
+					Voltar
 				</Button>
 			</div>
 			<div className="w-100 d-flex justify-content-center flex-wrap align-items-center">

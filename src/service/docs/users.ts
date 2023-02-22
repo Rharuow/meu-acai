@@ -1,44 +1,39 @@
-import { User } from "@/src/entities/User";
 import {
-  addDoc,
-  collectionGroup,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
+	addDoc,
+	collection,
+	deleteDoc,
+	doc,
+	getDocs,
+	query,
+	where,
 } from "firebase/firestore";
+import Cookies from "js-cookie";
+
+import { User } from "../../entities/User";
 
 import { db, userCollection } from "../firebase";
 
 export const getUsers = async () =>
-  (await getDocs(userCollection)).docs.map((document) => ({
-    ...document.data(),
-    id: document.id,
-  }));
+	(await getDocs(userCollection)).docs.map((document) => ({
+		...document.data(),
+		id: document.id,
+	}));
 
 export const createUser = async (data: User) =>
-  await addDoc(userCollection, data);
+	await addDoc(userCollection, data);
 
 export const deleteUser = async (id: string) =>
-  await deleteDoc(doc(db, "users", id));
+	await deleteDoc(doc(db, "users", id));
 
-export const getAdmin = async (data: { name: string; password: string }) => {
-  const q = query(
-    collectionGroup(db, "users"),
-    where("name", "==", data.name),
-    where("password", "==", data.password)
-  );
+export const createSession = async (data: User) => {
+	const q = query(
+		collection(db, "users"),
+		where("phone", "==", data.phone),
+		where("password", "==", data.password)
+	);
 
-  const queryAdmin = (await getDocs(q)).docs[0]?.data();
+	const user = (await getDocs(q)).docs[0]?.data();
 
-  let isAllowed = false;
-  if (queryAdmin)
-    for (const role of queryAdmin.roles) {
-      if ((await getDoc(doc(db, "roles", role.id))).data()?.name === "admin")
-        isAllowed = true;
-    }
-
-  return isAllowed;
+	if (user) return Cookies.set("user", JSON.stringify(user));
+	return false;
 };

@@ -1,5 +1,12 @@
-import { faGear, faReceipt, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+	faGear,
+	faReceipt,
+	faSignOut,
+	faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { useContentContext } from "../..";
@@ -7,6 +14,8 @@ import { useContentContext } from "../..";
 const NavbarMenu = () => {
 	const [expanded, setExpanded] = useState(false);
 	const { setContent } = useContentContext();
+
+	const router = useRouter();
 
 	return (
 		<Navbar expand="md" expanded={expanded}>
@@ -65,6 +74,16 @@ const NavbarMenu = () => {
 					>
 						<FontAwesomeIcon icon={faGear} className="text-primary" />{" "}
 						Configuração
+					</Nav.Link>
+					<Nav.Link
+						className="mb-3 fw-bold text-danger"
+						onClick={() => {
+							setExpanded((prevState) => !prevState);
+							Cookies.remove("user");
+							router.push("/");
+						}}
+					>
+						<FontAwesomeIcon icon={faSignOut} className="text-danger" /> Sair
 					</Nav.Link>
 				</Offcanvas.Body>
 			</Navbar.Offcanvas>

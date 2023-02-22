@@ -23,6 +23,7 @@
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "firebase": "^9.17.1",
+    "js-cookie": "^3.0.1",
     "luxon": "^3.2.1",
     "next": "13.0.7",
     "pix-react": "^1.0.4",
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@types/bootstrap": "^5.2.6",
     "@types/firebase": "^3.2.1",
+    "@types/js-cookie": "^3.0.3",
     "@types/luxon": "^3.2.0",
     "@types/react-bootstrap": "^0.32.32",
     "@types/react-infinite-scroll-component": "^5.0.0",
