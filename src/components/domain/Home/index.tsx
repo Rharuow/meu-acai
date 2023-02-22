@@ -1,10 +1,12 @@
 import { Button, Card, Form } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import InputMask from "react-input-mask";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
+import ReactWhatsapp from "react-whatsapp";
+import Modal from "react-modal";
 
 type Inputs = {
 	phone: string;
@@ -13,6 +15,7 @@ type Inputs = {
 
 const Home = () => {
 	const { register, handleSubmit, watch } = useForm<Inputs>();
+	const [modalIsOpen, setModalIsOpen] = useState(false);
 
 	const hasData = !!watch("phone") && !!watch("password");
 
@@ -20,11 +23,21 @@ const Home = () => {
 
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
 		console.log("data = ", data);
-		route.push("/dashboard");
+		// route.push("/dashboard");
 	};
 
 	return (
 		<div className="d-flex">
+			<Modal isOpen={modalIsOpen} contentLabel="Example Modal">
+				<ReactWhatsapp
+					//@ts-ignore
+					element={<button>the modal</button>}
+					number="1-212-736-5000"
+					message="Hello World!!!"
+					className="d-none"
+				/>
+			</Modal>
+
 			<div className="d-flex justify-content-center flex-wrap align-items-center">
 				<div className="d-flex w-100 justify-content-center align-self-end mb-3">
 					<div className="d-flex align-items-center">
@@ -59,11 +72,7 @@ const Home = () => {
 								/>
 							</Form.Group>
 							<Form.Group className="d-flex flex-wrap justify-content-center">
-								<Button
-									type="submit"
-									className="mb-1"
-									disabled={!hasData && process.env.NODE_ENV !== "development"}
-								>
+								<Button type="submit" className="mb-1" disabled={!hasData}>
 									Entrar
 								</Button>
 								<div className="w-100 text-center">
