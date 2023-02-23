@@ -26,16 +26,21 @@ const LayoutProvider: React.FC<{
 		router: string;
 	}>;
 	CustomNav?: JSX.Element;
+	SignInPage?: ReactNode;
 }> = ({
 	children,
 	setMenuItems = [{ text: "Configuração", icon: faGear, router: "/config" }],
 	CustomNav,
+	SignInPage,
 }) => {
 	const [language, setLanguage] = useState<"pt-BR" | "US">("pt-BR");
 	const [theme, setTheme] = useState<"ligth" | "dark">("dark");
 	const [classWrapper, setClassWrapper] = useState(" ");
 
 	const { user } = useSessionContext();
+
+	console.log("layout = ", user);
+
 	return (
 		<LayoutContext.Provider
 			value={{ language, setLanguage, theme, setTheme, setClassWrapper }}
@@ -48,6 +53,10 @@ const LayoutProvider: React.FC<{
 					<div className={`min-h-100vh bg-primary ${classWrapper}`}>
 						{CustomNav ? CustomNav : <Nav menuItems={setMenuItems} />}
 						{children}
+					</div>
+				) : SignInPage ? (
+					<div className={`min-h-100vh bg-primary ${classWrapper}`}>
+						{SignInPage}
 					</div>
 				) : (
 					<SignIn />

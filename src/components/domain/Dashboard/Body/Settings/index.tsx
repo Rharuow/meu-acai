@@ -1,5 +1,5 @@
 import React from "react";
-import Building from "../../../../Building";
+import Building from "@/src/rharuow-admin/components/Building";
 
 const Settings = () => {
 	return (

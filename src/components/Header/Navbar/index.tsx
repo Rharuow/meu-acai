@@ -80,7 +80,7 @@ const NavbarMenu = () => {
 						onClick={() => {
 							setExpanded((prevState) => !prevState);
 							Cookies.remove("user");
-							router.push("/");
+							router.push("/signout");
 						}}
 					>
 						<FontAwesomeIcon icon={faSignOut} className="text-danger" /> Sair

@@ -20,21 +20,16 @@ const Home = () => {
 
 	const hasData = !!watch("phone") && !!watch("password");
 
-	const route = useRouter();
-
-	const { setSessionLoading } = useSessionContext();
-
 	const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
-		setSessionLoading(true);
-		if (await createSession(data)) {
-			route.push("/dashboard");
+		const hasSession = await createSession(data);
+		if (hasSession) {
+			window.location.href = `${process.env.NEXT_PUBLIC_URL}/dashboard`;
 		} else
 			Swal.fire({
 				title: "Oppsss...",
 				text: "Senha ou número errados!",
 				icon: "error",
 			});
-		setSessionLoading(false);
 	};
 
 	return (

@@ -21,14 +21,26 @@ function SessionProvider({ children }: { children: React.ReactNode }) {
 
 	const router = useRouter();
 
+	console.log(" Session ", user);
+
 	useEffect(() => {
 		const userCookied = JSON.parse(Cookies.get("user") || "false") as User;
 
-		userCookied ? setUser(userCookied) : router.push("/");
+		if (userCookied && !user) {
+			console.log("Not have user YET");
+			setUser(userCookied);
+			router.push("/dashboard");
+		}
+
+		if (!userCookied) {
+			console.log("Not have user");
+			setUser(undefined);
+			router.push("/");
+		}
 
 		setLoading(false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [user, Cookies]);
 
 	return (
 		<SessionContext.Provider
