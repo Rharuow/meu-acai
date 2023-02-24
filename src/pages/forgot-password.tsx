@@ -1,5 +1,5 @@
 import React from "react";
-import Building from "../components/Building";
+import Building from "@/src/rharuow-admin/components/Building";
 
 const ForgotPassword = () => {
 	return <Building />;

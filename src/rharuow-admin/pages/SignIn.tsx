@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 import { useSessionContext } from "../context/Session";
 import Cookies from "js-cookie";
-import { getAdmin, getUsers } from "@/src/service/docs/users";
+// import { getAdmin, getUsers } from "@/src/service/docs/users";
 
 type Inputs = {
 	username: string;
@@ -24,16 +24,16 @@ export default function SignIn() {
 	const router = useRouter();
 
 	const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-		if (await getAdmin({ name: data.username, password: data.password })) {
-			Cookies.set("user", JSON.stringify(data.username));
-			setUser({ name: data.username, role: "admin" });
-			router.push("/");
-		} else
-			Swal.fire({
-				title: "Opps...",
-				icon: "error",
-				text: "Parece que você digitou a senha errada!",
-			});
+		// if (await getAdmin({ name: data.username, password: data.password })) {
+		// 	Cookies.set("user", JSON.stringify(data.username));
+		// 	setUser({ name: data.username, role: "admin" });
+		// 	router.push("/");
+		// } else
+		// 	Swal.fire({
+		// 		title: "Opps...",
+		// 		icon: "error",
+		// 		text: "Parece que você digitou a senha errada!",
+		// 	});
 	};
 
 	return (
