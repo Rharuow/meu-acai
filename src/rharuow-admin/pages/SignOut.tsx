@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import SignOutAnimation from "../components/SignOut";
@@ -8,6 +9,7 @@ function SignOut() {
 
 	const makingSignOut = () => {
 		setTimeout(() => {
+			Cookies.remove("user");
 			setUser(undefined);
 		}, 2000);
 	};

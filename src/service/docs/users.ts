@@ -17,7 +17,7 @@ export const getUsers = async () =>
 	(await getDocs(userCollection)).docs.map((document) => ({
 		...document.data(),
 		id: document.id,
-	}));
+	})) as Array<User>;
 
 export const createUser = async (data: User) =>
 	await addDoc(userCollection, data);
@@ -36,4 +36,9 @@ export const createSession = async (data: User) => {
 
 	if (user) return Cookies.set("user", JSON.stringify(user));
 	return false;
+};
+
+export const userAlreadyExists = async (phone: string) => {
+	const users = await getUsers();
+	return !!users.find((user) => user.phone === phone);
 };

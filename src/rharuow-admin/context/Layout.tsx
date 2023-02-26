@@ -5,6 +5,7 @@ import { useSessionContext } from "./Session";
 import Nav from "../components/Nav";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 interface ILayoutContext {
 	language: "pt-BR" | "US";
@@ -27,11 +28,13 @@ const LayoutProvider: React.FC<{
 	}>;
 	CustomNav?: JSX.Element;
 	SignInPage?: ReactNode;
+	SignUpPage: ReactNode;
 }> = ({
 	children,
 	setMenuItems = [{ text: "Configuração", icon: faGear, router: "/config" }],
 	CustomNav,
 	SignInPage,
+	SignUpPage,
 }) => {
 	const [language, setLanguage] = useState<"pt-BR" | "US">("pt-BR");
 	const [theme, setTheme] = useState<"ligth" | "dark">("dark");
@@ -39,7 +42,9 @@ const LayoutProvider: React.FC<{
 
 	const { user } = useSessionContext();
 
-	console.log("layout = ", user);
+	const router = useRouter();
+
+	console.log(router.asPath === "/signup");
 
 	return (
 		<LayoutContext.Provider
@@ -49,15 +54,17 @@ const LayoutProvider: React.FC<{
 				<title>Meu Açai</title>
 			</Head>
 			<main id="rharuow_app">
-				{user ? (
+				{user && router.asPath !== "/" && router.asPath !== "/signup" ? (
 					<div className={`min-h-100vh bg-primary ${classWrapper}`}>
 						{CustomNav ? CustomNav : <Nav menuItems={setMenuItems} />}
 						{children}
 					</div>
-				) : SignInPage ? (
+				) : SignInPage && router.asPath === "/" ? (
 					<div className={`min-h-100vh bg-primary ${classWrapper}`}>
 						{SignInPage}
 					</div>
+				) : router.asPath === "/signup" ? (
+					SignUpPage
 				) : (
 					<SignIn />
 				)}
