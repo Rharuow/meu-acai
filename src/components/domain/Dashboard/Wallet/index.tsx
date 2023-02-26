@@ -5,12 +5,14 @@ import { PixQRCode } from "pix-react";
 import copy from "copy-to-clipboard";
 import { ToastContainer, toast } from "react-toastify";
 
-import { mockedUser } from "../../../../entities/User";
+import { useSessionContext } from "@/src/rharuow-admin/context/Session";
 
 const Wallet = () => {
 	const [show, setShow] = useState(false);
 	const [qrCodeShow, setQrCodeShow] = useState(false);
 	const [value, setValue] = useState<number>(1);
+
+	const { user } = useSessionContext();
 
 	const handleClick = () => setShow(true);
 	const handleCloseModal = () => setShow(false);
@@ -59,7 +61,7 @@ const Wallet = () => {
 										cidade: `${process.env.NEXT_PUBLIC_PIX_CITY}`,
 										identificador: `${process.env.NEXT_PUBLIC_PIX_IDENTIFIER}`,
 										valor: value,
-										mensagem: `Por favor, despoistar esse valor na minha carteira. (${mockedUser.name})`,
+										mensagem: `Por favor, despoistar esse valor na minha carteira. (${user?.name})`,
 									}}
 									renderAs="svg"
 									size={256}
@@ -94,7 +96,7 @@ const Wallet = () => {
 					)}
 				</Modal.Body>
 			</Modal>
-			<h2>{mockedUser.wallet} R$</h2>
+			<h2>{user?.wallet} R$</h2>
 			<Button onClick={handleClick}>Depositar</Button>
 		</div>
 	);
