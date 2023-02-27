@@ -30,7 +30,11 @@ function SessionProvider({ children }: { children: React.ReactNode }) {
 			router.push("/dashboard");
 		}
 
-		if (!userCookied) {
+		if (
+			!userCookied &&
+			router.pathname !== "/signup" &&
+			router.pathname !== "/confirmation"
+		) {
 			console.log("Not have user");
 			setUser(undefined);
 			router.push("/");

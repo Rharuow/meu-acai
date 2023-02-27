@@ -45,8 +45,6 @@ const LayoutProvider: React.FC<{
 
 	const router = useRouter();
 
-	console.log(router.asPath === "/confirmation");
-
 	return (
 		<LayoutContext.Provider
 			value={{ language, setLanguage, theme, setTheme, setClassWrapper }}
@@ -55,18 +53,18 @@ const LayoutProvider: React.FC<{
 				<title>Meu Açai</title>
 			</Head>
 			<main id="rharuow_app">
-				{user && router.asPath !== "/" && router.asPath !== "/signup" ? (
+				{user && router.pathname !== "/" && router.pathname !== "/signup" ? (
 					<div className={`min-h-100vh bg-primary ${classWrapper}`}>
 						{CustomNav ? CustomNav : <Nav menuItems={setMenuItems} />}
 						{children}
 					</div>
-				) : SignInPage && router.asPath === "/" ? (
+				) : SignInPage && router.pathname === "/" ? (
 					<div className={`min-h-100vh bg-primary ${classWrapper}`}>
 						{SignInPage}
 					</div>
-				) : router.asPath === "/signup" ? (
+				) : router.pathname === "/signup" ? (
 					SignUpPage
-				) : router.asPath === "/confirmation" ? (
+				) : router.pathname === "/confirmation" ? (
 					<ConfirmationPage />
 				) : (
 					<SignIn />

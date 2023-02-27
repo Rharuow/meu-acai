@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import Confirmation from "../components/domain/Confirmation";
 
 function ConfirmationPage() {
 	const router = useRouter();
 
-	console.log("router = ", router);
+	const { code } = router.query;
 
+	if (!code) return <></>;
 	return <Confirmation />;
 }
 

@@ -6,6 +6,7 @@ import {
 	getDoc,
 	getDocs,
 	query,
+	updateDoc,
 	where,
 } from "firebase/firestore";
 import Cookies from "js-cookie";
@@ -39,16 +40,29 @@ export const createSession = async (data: User) => {
 	return false;
 };
 
-export const getUser = async ({
-	name,
-	id = " ",
-}: {
-	name?: string;
-	id: string;
-}) => {
-	const user = await getDoc(doc(db, "users", name ? name : id));
-	if (user.exists()) return user.data();
+export const getUser = async ({ name, id }: { name?: string; id: string }) => {
+	const q = name
+		? query(collection(db, "users"), where("name", "==", name))
+		: query(collection(db, "users"), where("id", "==", id));
+	const user = (await getDocs(q)).docs[0];
+	if (user && user.exists()) return user.data();
 	return "Usuário não encontrado!";
+};
+
+export const getUserByCode = async (hashCode: string) => {
+	const q = query(collection(db, "users"), where("hashCode", "==", hashCode));
+	const user = (await getDocs(q)).docs[0];
+	console.log(user.data());
+	if (user && user.exists()) return { ...user.data(), id: user.id };
+	return false;
+};
+
+export const updateUser = async (id: string, data: any) => {
+	const userRef = doc(db, "users", id);
+
+	const userUpdated = await updateDoc(userRef, data);
+
+	console.log(userUpdated);
 };
 
 export const userAlreadyExists = async (phone: string) => {

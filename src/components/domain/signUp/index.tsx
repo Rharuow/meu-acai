@@ -54,7 +54,7 @@ const SignUp = () => {
 				icon: "success",
 			}).then(() => {
 				const encondeText = encodeURI(
-					`Click no link para ativar sua conta: ${process.env.NEXT_PUBLIC_URL}/confirmation?hashCode=${dataFormatted.hashCode}`
+					`Click no link para ativar sua conta: ${process.env.NEXT_PUBLIC_URL}/confirmation?code=${dataFormatted.hashCode}`
 				);
 				window.open(
 					`https://wa.me/55${whatsappNumerFormatter(
