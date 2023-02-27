@@ -3,6 +3,7 @@ import {
 	collection,
 	deleteDoc,
 	doc,
+	getDoc,
 	getDocs,
 	query,
 	where,
@@ -36,6 +37,18 @@ export const createSession = async (data: User) => {
 
 	if (user) return Cookies.set("user", JSON.stringify(user));
 	return false;
+};
+
+export const getUser = async ({
+	name,
+	id = " ",
+}: {
+	name?: string;
+	id: string;
+}) => {
+	const user = await getDoc(doc(db, "users", name ? name : id));
+	if (user.exists()) return user.data();
+	return "Usuário não encontrado!";
 };
 
 export const userAlreadyExists = async (phone: string) => {

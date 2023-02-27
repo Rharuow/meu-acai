@@ -11,6 +11,7 @@ export type User = {
 	birthday?: string;
 	phone: string;
 	isActive: boolean;
+	hashCode: string;
 	address: {
 		house: number;
 		square: number;

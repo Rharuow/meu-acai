@@ -5,11 +5,18 @@ import React, { useState } from "react";
 import { Button, Card, Form, FormControl } from "react-bootstrap";
 import InputMask from "react-input-mask";
 import { useForm } from "react-hook-form";
+import CryptoJS, { MD5, SHA256 } from "crypto-js";
 
 import listAddress from "./utils/address";
-import { userAlreadyExists } from "@/src/service/docs/users";
+import {
+	createUser,
+	getUser,
+	userAlreadyExists,
+} from "@/src/service/docs/users";
 import { Role, User } from "@/src/entities/User";
 import { getRoles } from "@/src/service/docs/roles";
+import Swal from "sweetalert2";
+import { whatsappNumerFormatter } from "@/src/utils/whatsappNumberFormatter";
 
 const SignUp = () => {
 	const route = useRouter();
@@ -31,15 +38,31 @@ const SignUp = () => {
 
 		const roles = (await getRoles()) as Array<Role>;
 
-		console.log(roles);
-
 		const dataFormatted: User = {
 			...data,
+			password: `${SHA256(data.password)}`,
 			isActive: false,
 			roles: roles.filter((role) => role.name === "user"),
+			hashCode: `${MD5(data.name + data.password)}`,
 		};
 
-		console.log(dataFormatted);
+		const userCreated = await createUser(dataFormatted);
+		if (userCreated)
+			Swal.fire({
+				title: "Usuário criado com sucesso",
+				text: "Agora vá até o whatsapp e clice no link enviado...",
+				icon: "success",
+			}).then(() => {
+				const encondeText = encodeURI(
+					`Click no link para ativar sua conta: ${process.env.NEXT_PUBLIC_URL}/confirmation?hashCode=${dataFormatted.hashCode}`
+				);
+				window.open(
+					`https://wa.me/55${whatsappNumerFormatter(
+						data.phone
+					)}?text=${encondeText}`,
+					"_blank"
+				);
+			});
 
 		setValidated(true);
 	};
@@ -48,18 +71,15 @@ const SignUp = () => {
 		e: React.FocusEvent<HTMLInputElement, Element>
 	) => {
 		const userExists = await userAlreadyExists(e.target.value);
-		console.log(
-			e.target.value.split("").filter((v) => v !== "_" && v !== "-").length
-		);
 		if (userExists) {
 			setValidated(true);
-			e.target.value = "";
+			e.target.value = "+55(0";
 			setNumberMessageValidator("Número já cadastrado!");
 		} else if (
-			e.target.value.split("").filter((v) => v !== "_" && v !== "-").length < 18
+			e.target.value.split("").filter((v) => v !== "_" && v !== "-").length < 17
 		) {
 			setValidated(true);
-			e.target.value = "";
+			e.target.value = "+55(0";
 			setNumberMessageValidator("Número muito curto.");
 		}
 	};
@@ -98,7 +118,11 @@ const SignUp = () => {
 							</Form.Group>
 							<Form.Group className="mb-3">
 								<Form.Label className="text-primary">Nome</Form.Label>
-								<FormControl placeholder="Digite seu nome" required />
+								<FormControl
+									placeholder="Digite seu nome"
+									{...methods.register("name")}
+									required
+								/>
 								<Form.Control.Feedback type="invalid">
 									O nome é obrigatório
 								</Form.Control.Feedback>
