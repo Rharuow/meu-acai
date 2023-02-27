@@ -21,8 +21,6 @@ function SessionProvider({ children }: { children: React.ReactNode }) {
 
 	const router = useRouter();
 
-	console.log(" Session ", user);
-
 	useEffect(() => {
 		const userCookied = JSON.parse(Cookies.get("user") || "false") as User;
 

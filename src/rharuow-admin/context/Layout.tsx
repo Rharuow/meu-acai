@@ -6,6 +6,7 @@ import Nav from "../components/Nav";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import ConfirmationPage from "@/src/pages/confirmation";
 
 interface ILayoutContext {
 	language: "pt-BR" | "US";
@@ -44,7 +45,7 @@ const LayoutProvider: React.FC<{
 
 	const router = useRouter();
 
-	console.log(router.asPath === "/signup");
+	console.log(router.asPath === "/confirmation");
 
 	return (
 		<LayoutContext.Provider
@@ -65,6 +66,8 @@ const LayoutProvider: React.FC<{
 					</div>
 				) : router.asPath === "/signup" ? (
 					SignUpPage
+				) : router.asPath === "/confirmation" ? (
+					<ConfirmationPage />
 				) : (
 					<SignIn />
 				)}
