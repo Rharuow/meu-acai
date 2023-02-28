@@ -1,3 +1,4 @@
+import { SHA256 } from "crypto-js";
 import {
 	addDoc,
 	collection,
@@ -28,15 +29,18 @@ export const deleteUser = async (id: string) =>
 	await deleteDoc(doc(db, "users", id));
 
 export const createSession = async (data: User) => {
+	const passwordHashed = SHA256(data.password).toString();
+
 	const q = query(
 		collection(db, "users"),
 		where("phone", "==", data.phone),
-		where("password", "==", data.password)
+		where("password", "==", passwordHashed)
 	);
 
-	const user = (await getDocs(q)).docs[0]?.data();
+	const user = (await getDocs(q)).docs[0];
 
-	if (user) return Cookies.set("user", JSON.stringify(user));
+	if (user && user.exists())
+		return Cookies.set("user", JSON.stringify(user.data()));
 	return false;
 };
 
@@ -52,7 +56,13 @@ export const getUser = async ({ name, id }: { name?: string; id: string }) => {
 export const getUserByCode = async (hashCode: string) => {
 	const q = query(collection(db, "users"), where("hashCode", "==", hashCode));
 	const user = (await getDocs(q)).docs[0];
-	console.log(user.data());
+	if (user && user.exists()) return { ...user.data(), id: user.id };
+	return false;
+};
+
+export const getUserByPhone = async (phone: string) => {
+	const q = query(collection(db, "users"), where("phone", "==", phone));
+	const user = (await getDocs(q)).docs[0];
 	if (user && user.exists()) return { ...user.data(), id: user.id };
 	return false;
 };

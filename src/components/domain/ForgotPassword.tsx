@@ -3,15 +3,48 @@ import { Button, Card, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import ReactLoading from "react-loading";
 import InputMask from "react-input-mask";
+import { getUserByPhone } from "@/src/service/docs/users";
+import Swal from "sweetalert2";
+import { User } from "@/src/entities/User";
+import { whatsappNumerFormatter } from "@/src/utils/whatsappNumberFormatter";
+import { useRouter } from "next/router";
 
 function ForgotPassword() {
 	const [loading, setLoading] = useState(true);
 
 	const methods = useForm<{ phone: string }>();
 
-	const onSubmit = (data: { phone: string }) => {
-		console.log(data);
+	const onSubmit = async ({ phone }: { phone: string }) => {
+		const user = (await getUserByPhone(phone)) as User;
+
+		if (!user)
+			Swal.fire({
+				title: "Ops...",
+				text: "Não foi possível encontrar seu número...",
+				icon: "error",
+				confirmButtonText: "OK",
+			});
+		else {
+			Swal.fire({
+				title: "Perfeito!",
+				text: "Enviaremos uma menssagem para seu whatsapp...",
+				icon: "success",
+				confirmButtonText: "OK",
+			}).then(() => {
+				const encondeText = encodeURI(
+					`Click no link recuperar sua senha: ${process.env.NEXT_PUBLIC_URL}/recovery?code=${user.hashCode}`
+				);
+				window.open(
+					`https://wa.me/55${whatsappNumerFormatter(
+						user.phone
+					)}?text=${encondeText}`,
+					"_blank"
+				);
+			});
+		}
 	};
+
+	const router = useRouter();
 
 	useEffect(() => {
 		setLoading(false);
@@ -35,7 +68,26 @@ function ForgotPassword() {
 									required
 								/>
 							</Form.Group>
-							<Button type="submit">Recuperar</Button>
+							<div className="d-flex justify-content-between">
+								<Button
+									variant="danger"
+									className="text-white"
+									onClick={() => router.back()}
+								>
+									Voltar
+								</Button>
+								<Button
+									variant="success"
+									type="submit"
+									disabled={
+										!methods.watch("phone") ||
+										methods.watch("phone").split("").filter(Number).length !==
+											13
+									}
+								>
+									Recuperar
+								</Button>
+							</div>
 						</Form>
 					</Card.Body>
 				</Card>

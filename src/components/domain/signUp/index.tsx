@@ -5,14 +5,10 @@ import React, { useState } from "react";
 import { Button, Card, Form, FormControl } from "react-bootstrap";
 import InputMask from "react-input-mask";
 import { useForm } from "react-hook-form";
-import CryptoJS, { MD5, SHA256 } from "crypto-js";
+import { MD5, SHA256 } from "crypto-js";
 
 import listAddress from "./utils/address";
-import {
-	createUser,
-	getUser,
-	userAlreadyExists,
-} from "@/src/service/docs/users";
+import { createUser, userAlreadyExists } from "@/src/service/docs/users";
 import { Role, User } from "@/src/entities/User";
 import { getRoles } from "@/src/service/docs/roles";
 import Swal from "sweetalert2";

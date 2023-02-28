@@ -54,7 +54,7 @@ const Home = () => {
 								<Form.Label>Telefone</Form.Label>
 								<InputMask
 									className="form-control"
-									mask="+55 (099) 99999-9999"
+									mask="+55(099)99999-9999"
 									placeholder="Digite seu número"
 									{...register("phone")}
 								/>
