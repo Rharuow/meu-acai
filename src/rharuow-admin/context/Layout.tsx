@@ -31,7 +31,7 @@ const LayoutProvider: React.FC<{
 	}>;
 	CustomNav?: JSX.Element;
 	SignInPage?: ReactNode;
-	SignUpPage: ReactNode;
+	SignUpPage?: ReactNode;
 }> = ({
 	children,
 	setMenuItems = [{ text: "Configuração", icon: faGear, router: "/config" }],
