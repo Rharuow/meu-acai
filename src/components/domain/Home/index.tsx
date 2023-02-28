@@ -1,5 +1,5 @@
 import { Button, Card, Form } from "react-bootstrap";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import InputMask from "react-input-mask";
@@ -12,6 +12,7 @@ import { useSessionContext } from "@/src/rharuow-admin/context/Session";
 import { User } from "@/src/entities/User";
 import { whatsappNumerFormatter } from "@/src/utils/whatsappNumberFormatter";
 import Cookies from "js-cookie";
+import ReactLoading from "react-loading";
 
 type Inputs = {
 	phone: string;
@@ -20,6 +21,8 @@ type Inputs = {
 
 const Home = () => {
 	const { register, handleSubmit, watch } = useForm<Inputs>();
+
+	const [loading, setLoading] = useState(true);
 
 	const hasData = !!watch("phone") && !!watch("password");
 
@@ -56,61 +59,71 @@ const Home = () => {
 		});
 	};
 
+	useEffect(() => {
+		setLoading(false);
+	}, []);
+
 	return (
-		<div className="d-flex">
-			<div className="d-flex justify-content-center flex-wrap align-items-center">
-				<div className="d-flex w-100 justify-content-center align-self-end mb-3">
-					<div className="d-flex align-items-center">
-						<Image
-							alt="logo"
-							priority
-							src="/product/meu-açai.png"
-							className="rounded-circle"
-							width={150}
-							height={150}
-						/>
-					</div>
+		<>
+			{loading ? (
+				<div className="d-flex justify-content-center w-100 h-100vh align-items-center">
+					<ReactLoading type="spinningBubbles" />
 				</div>
-				<Card className="align-self-start">
-					<Card.Body className="bg-secondary">
-						<Form onSubmit={handleSubmit(onSubmit)}>
-							<Form.Group className="mb-3">
-								<Form.Label>Telefone</Form.Label>
-								<InputMask
-									className="form-control"
-									mask="+55(099)99999-9999"
-									placeholder="Digite seu número"
-									{...register("phone")}
-								/>
-							</Form.Group>
-							<Form.Group className="mb-3">
-								<Form.Label>Senha</Form.Label>
-								<Form.Control
-									type="password"
-									placeholder="Digite sua senha"
-									{...register("password")}
-								/>
-							</Form.Group>
-							<Form.Group className="d-flex flex-wrap justify-content-center">
-								<Button type="submit" className="mb-1" disabled={!hasData}>
-									Entrar
-								</Button>
-								<div className="w-100 text-center">
-									<small>
-										<Link href="/signup">Me cadastrar</Link>
-									</small>
-								</div>
-								<div className="w-100 text-center">
-									<small>
-										<Link href="/forgot-password">Esqueci minha senha</Link>
-									</small>
-								</div>
-							</Form.Group>
-						</Form>
-					</Card.Body>
-				</Card>
-			</div>
-		</div>
+			) : (
+				<div className="d-flex justify-content-center h-100vh flex-wrap align-items-center p-3">
+					<div className="d-flex w-100 justify-content-center align-self-end">
+						<div className="d-flex align-items-center">
+							<Image
+								alt="logo"
+								priority
+								src="/product/meu-açai.png"
+								className="rounded-circle"
+								width={120}
+								height={120}
+							/>
+						</div>
+					</div>
+					<Card className="align-self-start">
+						<Card.Body className="bg-secondary">
+							<Form onSubmit={handleSubmit(onSubmit)}>
+								<Form.Group className="mb-3">
+									<Form.Label>Telefone</Form.Label>
+									<InputMask
+										className="form-control"
+										mask="+55(099)99999-9999"
+										placeholder="Digite seu número"
+										{...register("phone")}
+									/>
+								</Form.Group>
+								<Form.Group className="mb-3">
+									<Form.Label>Senha</Form.Label>
+									<Form.Control
+										type="password"
+										placeholder="Digite sua senha"
+										{...register("password")}
+									/>
+								</Form.Group>
+								<Form.Group className="d-flex flex-wrap justify-content-center">
+									<Button type="submit" className="mb-1" disabled={!hasData}>
+										Entrar
+									</Button>
+									<div className="w-100 text-center">
+										<small>
+											<Link href="/signup">Me cadastrar</Link>
+										</small>
+									</div>
+									<div className="w-100 text-center">
+										<small>
+											<Link href="/forgot-password">Esqueci minha senha</Link>
+										</small>
+									</div>
+								</Form.Group>
+							</Form>
+						</Card.Body>
+					</Card>
+				</div>
+			)}
+		</>
 	);
 };
 
