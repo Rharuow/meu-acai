@@ -1,7 +1,8 @@
 import React from "react";
+import Recovery from "../components/domain/Recovery";
 
 function RecoveryPage() {
-	return <div>RecoveryPage</div>;
+	return <Recovery />;
 }
 
 export default RecoveryPage;

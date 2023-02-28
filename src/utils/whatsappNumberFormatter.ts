@@ -6,3 +6,9 @@ export const whatsappNumerFormatter = (number: string) => {
 		numberFormatted.split("-")[0] + numberFormatted.split("-")[1];
 	return numberFormatted;
 };
+
+export const validateSizeNumbers = (phone: string) =>
+	phone
+		.split("")
+		.map((word) => parseInt(word))
+		.filter((word) => !isNaN(word)).length === 14;

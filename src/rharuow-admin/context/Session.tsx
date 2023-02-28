@@ -33,6 +33,7 @@ function SessionProvider({ children }: { children: React.ReactNode }) {
 		if (
 			!userCookied &&
 			router.pathname !== "/signup" &&
+			router.pathname !== "/recovery" &&
 			router.pathname !== "/confirmation"
 		) {
 			console.log("Not have user");

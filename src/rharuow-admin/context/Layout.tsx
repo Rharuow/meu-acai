@@ -8,6 +8,7 @@ import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import ConfirmationPage from "@/src/pages/confirmation";
 import ForgotPasswordPage from "@/src/pages/forgot-password";
+import RecoveryPage from "@/src/pages/recovery";
 
 interface ILayoutContext {
 	language: "pt-BR" | "US";
@@ -57,6 +58,7 @@ const LayoutProvider: React.FC<{
 				{user &&
 				router.pathname !== "/" &&
 				router.pathname !== "/signup" &&
+				router.pathname !== "/recovery" &&
 				router.pathname !== "/forgot-password" ? (
 					<div className={`min-h-100vh bg-primary ${classWrapper}`}>
 						{CustomNav ? CustomNav : <Nav menuItems={setMenuItems} />}
@@ -72,6 +74,8 @@ const LayoutProvider: React.FC<{
 					<ConfirmationPage />
 				) : router.pathname === "/forgot-password" ? (
 					<ForgotPasswordPage />
+				) : router.pathname === "/recovery" ? (
+					<RecoveryPage />
 				) : (
 					<SignIn />
 				)}

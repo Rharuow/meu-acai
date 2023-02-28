@@ -6,7 +6,10 @@ import InputMask from "react-input-mask";
 import { getUserByPhone } from "@/src/service/docs/users";
 import Swal from "sweetalert2";
 import { User } from "@/src/entities/User";
-import { whatsappNumerFormatter } from "@/src/utils/whatsappNumberFormatter";
+import {
+	validateSizeNumbers,
+	whatsappNumerFormatter,
+} from "@/src/utils/whatsappNumberFormatter";
 import { useRouter } from "next/router";
 
 function ForgotPassword() {
@@ -81,8 +84,7 @@ function ForgotPassword() {
 									type="submit"
 									disabled={
 										!methods.watch("phone") ||
-										methods.watch("phone").split("").filter(Number).length !==
-											13
+										!validateSizeNumbers(methods.watch("phone"))
 									}
 								>
 									Recuperar

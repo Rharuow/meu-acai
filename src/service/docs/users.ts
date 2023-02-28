@@ -69,10 +69,12 @@ export const getUserByPhone = async (phone: string) => {
 
 export const updateUser = async (id: string, data: any) => {
 	const userRef = doc(db, "users", id);
-
-	const userUpdated = await updateDoc(userRef, data);
-
-	console.log(userUpdated);
+	try {
+		await updateDoc(userRef, data);
+		return true;
+	} catch (error) {
+		return false;
+	}
 };
 
 export const userAlreadyExists = async (phone: string) => {
