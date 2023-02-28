@@ -7,6 +7,7 @@ import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import ConfirmationPage from "@/src/pages/confirmation";
+import ForgotPasswordPage from "@/src/pages/forgot-password";
 
 interface ILayoutContext {
 	language: "pt-BR" | "US";
@@ -53,7 +54,10 @@ const LayoutProvider: React.FC<{
 				<title>Meu Açai</title>
 			</Head>
 			<main id="rharuow_app">
-				{user && router.pathname !== "/" && router.pathname !== "/signup" ? (
+				{user &&
+				router.pathname !== "/" &&
+				router.pathname !== "/signup" &&
+				router.pathname !== "/forgot-password" ? (
 					<div className={`min-h-100vh bg-primary ${classWrapper}`}>
 						{CustomNav ? CustomNav : <Nav menuItems={setMenuItems} />}
 						{children}
@@ -66,6 +70,8 @@ const LayoutProvider: React.FC<{
 					SignUpPage
 				) : router.pathname === "/confirmation" ? (
 					<ConfirmationPage />
+				) : router.pathname === "/forgot-password" ? (
+					<ForgotPasswordPage />
 				) : (
 					<SignIn />
 				)}
