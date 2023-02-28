@@ -7,8 +7,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 
-import { createSession } from "@/src/service/docs/users";
+import { createSession, userIsActive } from "@/src/service/docs/users";
 import { useSessionContext } from "@/src/rharuow-admin/context/Session";
+import { User } from "@/src/entities/User";
+import { whatsappNumerFormatter } from "@/src/utils/whatsappNumberFormatter";
+import Cookies from "js-cookie";
 
 type Inputs = {
 	phone: string;
@@ -20,16 +23,37 @@ const Home = () => {
 
 	const hasData = !!watch("phone") && !!watch("password");
 
-	const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
-		const hasSession = await createSession(data);
-		if (hasSession) {
-			window.location.href = `${process.env.NEXT_PUBLIC_URL}/dashboard`;
-		} else
-			Swal.fire({
+	const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+		const hasSession = await createSession(data as User);
+
+		if (hasSession && !hasSession.hasOwnProperty("type")) {
+			Cookies.set("user", JSON.stringify(hasSession));
+			return (window.location.href = `${process.env.NEXT_PUBLIC_URL}/dashboard`);
+		}
+		if (hasSession && hasSession.hasOwnProperty("type"))
+			return Swal.fire({
 				title: "Oppsss...",
-				text: "Senha ou número errados!",
-				icon: "error",
+				text: "Você precisa ativar sua conta!",
+				icon: "info",
+				confirmButtonText: "Ativar!",
+			}).then(() => {
+				const user: User = hasSession as unknown as User;
+				const encondeText = encodeURI(
+					`Click no link para ativar sua conta: ${process.env.NEXT_PUBLIC_URL}/confirmation?code=${user.hashCode}`
+				);
+				window.open(
+					`https://wa.me/55${whatsappNumerFormatter(
+						user.phone
+					)}?text=${encondeText}`,
+					"_blank"
+				);
 			});
+
+		Swal.fire({
+			title: "Oppsss...",
+			text: "Senha ou número errados!",
+			icon: "error",
+		});
 	};
 
 	return (

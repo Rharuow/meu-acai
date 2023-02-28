@@ -16,6 +16,40 @@ import { User } from "../../entities/User";
 
 import { db, userCollection } from "../firebase";
 
+export const userIsUnique = async (user: User) => {
+	const q = query(
+		userCollection,
+		where("id", "==", user.id),
+		where("hashCode", "==", user.hashCode),
+		where("phone", "==", user.phone),
+		where("name", "==", user.name),
+		where("address", "==", user.address)
+	);
+	try {
+		return (await getDocs(q)).docs[0].data();
+	} catch (error) {
+		return false;
+	}
+};
+export const userIsActive = async (user: User) => {
+	const q = query(
+		userCollection,
+		where("isActive", "==", true),
+		user.id
+			? where("id", "==", user.id)
+			: user.phone
+			? where("phone", "==", user.phone)
+			: where("name", "==", user.name)
+	);
+	try {
+		const user = (await getDocs(q)).docs[0];
+		if (user && user.exists()) return user.data();
+		else return false;
+	} catch (error: any) {
+		throw Error(error.message);
+	}
+};
+
 export const getUsers = async () =>
 	(await getDocs(userCollection)).docs.map((document) => ({
 		...document.data(),
@@ -39,8 +73,11 @@ export const createSession = async (data: User) => {
 
 	const user = (await getDocs(q)).docs[0];
 
-	if (user && user.exists())
-		return Cookies.set("user", JSON.stringify(user.data()));
+	if (user && user.exists()) {
+		return user.data().isActive
+			? user.data()
+			: { ...user.data(), type: "UserInactive", id: user.id };
+	}
 	return false;
 };
 

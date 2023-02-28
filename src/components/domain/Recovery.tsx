@@ -45,8 +45,6 @@ function Recovery() {
 				password: SHA256(data.password).toString(),
 			}));
 
-		console.log(userUpdated);
-
 		if (!userUpdated)
 			Swal.fire({
 				title: "Desculpe...",
