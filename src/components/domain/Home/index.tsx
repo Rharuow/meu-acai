@@ -27,6 +27,7 @@ const Home = () => {
 	const hasData = !!watch("phone") && !!watch("password");
 
 	const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+		setLoading(true);
 		const hasSession = await createSession(data as User);
 
 		if (hasSession && !hasSession.hasOwnProperty("type")) {
@@ -57,6 +58,7 @@ const Home = () => {
 			text: "Senha ou número errados!",
 			icon: "error",
 		});
+		setLoading(false);
 	};
 
 	useEffect(() => {
