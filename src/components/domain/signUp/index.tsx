@@ -38,6 +38,7 @@ const SignUp = () => {
 			...data,
 			password: `${SHA256(data.password)}`,
 			isActive: false,
+			wallet: 0,
 			roles: roles.filter((role) => role.name === "user"),
 			hashCode: `${MD5(data.name + data.password)}`,
 		};
