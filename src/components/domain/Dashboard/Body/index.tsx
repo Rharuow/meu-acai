@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Collapse } from "react-bootstrap";
+import { Button, Collapse } from "react-bootstrap";
 import { useContentContext } from "..";
 import Wallet from "../Wallet";
 import Order from "./Order";
 import Tracking from "./Order/Tracking";
-import Product from "./Product";
+import Menu from "./Menu";
 import Profile from "./Profile";
 import Settings from "./Settings";
 
 import { useLayoutContext } from "@/src/rharuow-admin/context/Layout";
 
 const Body = () => {
-	const [productOpen, setProductOpen] = useState(false);
+	const [menuOpen, setMenuOpen] = useState(false);
 	const [orderOpen, setOrderOpen] = useState(false);
 	const [trackingOpen, setTrackingOpen] = useState(false);
 	const [walletOpen, setWalletOpen] = useState(false);
@@ -32,15 +32,15 @@ const Body = () => {
 						size="lg"
 						variant="secondary"
 						className="rounded-0 border-bottom w-100 rounded-top fw-bold"
-						onClick={() => setProductOpen((prevState) => !prevState)}
+						onClick={() => setMenuOpen((prevState) => !prevState)}
 						aria-controls="order-collapse"
-						aria-expanded={productOpen}
+						aria-expanded={menuOpen}
 					>
 						Pedir
 					</Button>
-					<Collapse in={productOpen}>
+					<Collapse in={menuOpen}>
 						<div id="order-collapse" className="bg-gray-400 w-100">
-							<Product />
+							<Menu />
 						</div>
 					</Collapse>
 					<Button

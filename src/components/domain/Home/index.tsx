@@ -37,20 +37,32 @@ const Home = () => {
 		if (hasSession && hasSession.hasOwnProperty("type"))
 			return Swal.fire({
 				title: "Oppsss...",
-				text: "Você precisa ativar sua conta!",
+				text:
+					hasSession.type === "UserInactive"
+						? "Você precisa ativar sua conta!"
+						: "Parece que sua conta ta bloqueada!",
 				icon: "info",
-				confirmButtonText: "Ativar!",
+				confirmButtonText:
+					hasSession.type === "UserInactive" ? "Ativar!" : "Ok",
 			}).then(() => {
 				const user: User = hasSession as unknown as User;
-				const encondeText = encodeURI(
-					`Click no link para ativar sua conta: ${process.env.NEXT_PUBLIC_URL}/confirmation?code=${user.hashCode}`
-				);
+				const encondeText =
+					hasSession.type === "UserInactive"
+						? encodeURI(
+								`Click no link para ativar sua conta: ${process.env.NEXT_PUBLIC_URL}/confirmation?code=${user.hashCode}`
+						  )
+						: encodeURI(
+								`Olá, tudo bem? Meu nome é ${user.name} e gostaria de saber porque minha conta ta bloqueada.`
+						  );
 				window.open(
 					`https://wa.me/55${whatsappNumerFormatter(
-						user.phone
+						hasSession.type === "UserInactive"
+							? user.phone
+							: `${process.env.NEXT_PUBLIC_ADMIN_PHONE}`
 					)}?text=${encondeText}`,
 					"_blank"
 				);
+				setLoading(false);
 			});
 
 		Swal.fire({

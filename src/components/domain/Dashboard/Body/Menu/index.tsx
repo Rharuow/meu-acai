@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import Switch from "react-switch";
 import { useForm, FormProvider } from "react-hook-form";
+import Swal from "sweetalert2";
 
-import { Product as ProductType } from "../../../../../entities/Product";
 import Cream from "./Cream";
 import Extras from "./Extra";
 import Topping from "./Topping";
 import Size from "./Size";
-import Swal from "sweetalert2";
+import { Menu } from "@/src/entities/Product";
 
 const Product = () => {
 	const methods = useForm();
 
-	const [product, setProduct] = useState<ProductType>();
+	const [product, setProduct] = useState<Menu>();
 
 	const [hasExtra, setHasExtra] = useState(false);
 

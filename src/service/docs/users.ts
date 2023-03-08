@@ -74,8 +74,10 @@ export const createSession = async (data: User) => {
 	const user = (await getDocs(q)).docs[0];
 
 	if (user && user.exists()) {
-		return user.data().isActive
+		return user.data().isActive && !user.data().isBloqued
 			? user.data()
+			: user.data().isBloqued
+			? { ...user.data(), type: "UserBloqued", id: user.id }
 			: { ...user.data(), type: "UserInactive", id: user.id };
 	}
 	return false;
