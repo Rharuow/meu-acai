@@ -13,14 +13,13 @@ import { Menu } from "@/src/entities/Product";
 const Product = () => {
 	const methods = useForm();
 
-	const [product, setProduct] = useState<Menu>();
+	const [menu, setMenu] = useState<Menu>();
 
 	const [hasExtra, setHasExtra] = useState(false);
 
-	const orderWithoutCream =
-		!product || !product.creams || product.creams?.length < 1;
+	const orderWithoutCream = !menu || !menu.creams || menu.creams?.length < 1;
 
-	const orderWithoutSize = !product;
+	const orderWithoutSize = !menu;
 
 	const orderIsInvalid = orderWithoutCream || orderWithoutSize;
 
@@ -31,7 +30,7 @@ const Product = () => {
 			title: "Obrigado!",
 			text: "Seu pedido será preparado!",
 		});
-		console.log(product);
+		console.log(menu);
 	};
 
 	return (
@@ -39,13 +38,13 @@ const Product = () => {
 			<FormProvider {...methods}>
 				<Form onSubmit={onSubmit}>
 					<div className="d-flex py-2 px-3 flex-wrap">
-						<Size product={product} setProduct={setProduct} />
+						<Size menu={menu} setMenu={setMenu} />
 
-						<Cream product={product} setProduct={setProduct} />
+						<Cream menu={menu} setMenu={setMenu} />
 
-						<Topping product={product} setProduct={setProduct} />
+						<Topping menu={menu} setMenu={setMenu} />
 
-						{product && (
+						{menu && (
 							<div className="my-3">
 								<label className="d-flex align-items-center">
 									<Switch
@@ -58,12 +57,12 @@ const Product = () => {
 							</div>
 						)}
 
-						{hasExtra && <Extras product={product} setProduct={setProduct} />}
+						{hasExtra && <Extras menu={menu} setMenu={setMenu} />}
 						<div className="w-100 mb-1">
 							<p className="fs-6 fw-bold mb-0">
 								Valor: R${" "}
-								{product
-									? product.value.toLocaleString("pt-BR", {
+								{menu
+									? menu.value.toLocaleString("pt-BR", {
 											currency: "BRL",
 											minimumFractionDigits: 2,
 									  })
