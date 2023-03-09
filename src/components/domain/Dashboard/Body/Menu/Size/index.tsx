@@ -33,7 +33,7 @@ const Size: React.FC = () => {
 									<Button
 										className="w-80 mb-2"
 										variant={
-											size.name === watch("size").name
+											size.name === watch("size")?.name
 												? "primary"
 												: "outline-primary"
 										}

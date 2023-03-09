@@ -11,6 +11,9 @@ const Numeric: React.FC<{
 	width?: number;
 	heigth?: number;
 
+	locked?: boolean;
+	vertical?: boolean;
+
 	defaultValue?: number;
 	getValue?: (value?: number) => void;
 	handleIncrement?: () => void;
@@ -18,7 +21,9 @@ const Numeric: React.FC<{
 
 	className?: string;
 }> = ({
+	vertical,
 	label,
+	locked = false,
 	name,
 	min = 0,
 	defaultValue = 0,
@@ -48,7 +53,14 @@ const Numeric: React.FC<{
 	}, [max, min, value]);
 
 	return (
-		<Form.Group className="d-flex align-items-center mb-1">
+		<Form.Group
+			className={`d-flex align-items-center mb-1 ${
+				vertical ? "flex-wrap" : " "
+			}`}
+		>
+			{label && vertical && (
+				<Form.Label className="w-100 mb-0 text-primary">{label}</Form.Label>
+			)}
 			<div className="position-relative h-35px me-1">
 				<Form.Control
 					type="number"
@@ -63,7 +75,7 @@ const Numeric: React.FC<{
 				<Button
 					className="position-absolute h-25px rounded-circle fw-bold z-index-1 w-25px text-center p-0 top-5px end-4px"
 					size="sm"
-					disabled={maxDisabled}
+					disabled={maxDisabled || locked}
 					onClick={() => {
 						max > numericInput.current.value && numericInput.current.stepUp();
 						setValue(numericInput.current.value as number);
@@ -74,9 +86,9 @@ const Numeric: React.FC<{
 					+
 				</Button>
 				<Button
-					className="position-absolute h-25px rounded-circle fw-bold z-index-1 w-25px p-0 top-5px "
+					className="position-absolute h-25px rounded-circle fw-bold z-index-1 w-25px p-0 top-5px s-0"
 					size="sm"
-					disabled={minDisabled}
+					disabled={minDisabled || locked}
 					onClick={() => {
 						min < numericInput.current.value && numericInput.current.stepDown();
 						setValue(numericInput.current.value as number);
@@ -87,7 +99,9 @@ const Numeric: React.FC<{
 					-
 				</Button>
 			</div>
-			{label && <Form.Label className="w-100 mb-0">{label}</Form.Label>}
+			{label && !vertical && (
+				<Form.Label className="w-100 mb-0 text-primary">{label}</Form.Label>
+			)}
 		</Form.Group>
 	);
 };

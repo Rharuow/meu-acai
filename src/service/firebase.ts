@@ -23,6 +23,7 @@ export const db = getFirestore();
 // collections
 
 export const userCollection = collection(db, "users");
+export const creamCollection = collection(db, "creams");
 export const sizeCollection = collection(db, "sizes");
 export const roleCollection = collection(db, "roles");
 export const toppingCollection = collection(db, "toppings");

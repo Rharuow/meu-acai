@@ -31,7 +31,7 @@ const Body = () => {
 					<Button
 						size="lg"
 						variant="secondary"
-						className="rounded-0 border-bottom w-100 rounded-top fw-bold"
+						className="rounded-0 text-primary-dark border-bottom w-100 rounded-top fw-bold"
 						onClick={() => setMenuOpen((prevState) => !prevState)}
 						aria-controls="order-collapse"
 						aria-expanded={menuOpen}
@@ -46,7 +46,7 @@ const Body = () => {
 					<Button
 						size="lg"
 						variant="secondary"
-						className="rounded-0 border-bottom w-100 fw-bold"
+						className="rounded-0 text-primary-dark border-bottom w-100 fw-bold"
 						onClick={() => setTrackingOpen((prevState) => !prevState)}
 						aria-controls="tracking-collapse"
 						aria-expanded={trackingOpen}
@@ -61,7 +61,7 @@ const Body = () => {
 					<Button
 						size="lg"
 						variant="secondary"
-						className="rounded-0 border-bottom w-100 fw-bold"
+						className="rounded-0 text-primary-dark border-bottom w-100 fw-bold"
 						onClick={() => setOrderOpen((prevState) => !prevState)}
 						aria-controls="orders-collapse"
 						aria-expanded={orderOpen}

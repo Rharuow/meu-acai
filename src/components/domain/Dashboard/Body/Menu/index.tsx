@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import Switch from "react-switch";
 import { useForm, FormProvider } from "react-hook-form";
@@ -9,8 +9,12 @@ import Extras from "./Extra";
 import Topping from "./Topping";
 import Size from "./Size";
 
+import { Menu } from "@/src/entities/Product";
+
 const Product = () => {
-	const methods = useForm();
+	const methods = useForm<Menu>();
+
+	const [hasExtra, setHasExtra] = useState(false);
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -28,28 +32,40 @@ const Product = () => {
 					<div className="d-flex py-2 px-3 flex-wrap">
 						<Size />
 
-						<Cream />
+						{methods.getValues("size") && (
+							<>
+								<Cream />
 
-						<Topping />
+								<Topping />
 
-						<div className="my-3">
-							<label className="d-flex align-items-center">
-								<Switch
-									onChange={(e) => methods.setValue("hasExtra", e)}
-									checked={methods.watch("hasExtra")}
-									onColor="#46295a"
-								/>
-								<span className="ms-2">Adicionar Extra?</span>
-							</label>
-						</div>
+								<div className="my-3">
+									<label className="d-flex align-items-center">
+										<Switch
+											onChange={(e) => setHasExtra(e)}
+											checked={hasExtra}
+											onColor="#46295a"
+										/>
+										<span className="ms-2">Adicionar Extra?</span>
+									</label>
+								</div>
 
-						<Extras />
-						<div className="w-100 mb-1">
-							<p className="fs-6 fw-bold mb-0">Valor: R$</p>
-						</div>
-
+								<Extras />
+								<div className="w-100 mb-1">
+									<p className="fs-6 fw-bold mb-0">Valor: R$</p>
+								</div>
+							</>
+						)}
 						<div className="w-100 d-flex justify-content-end flex-wrap">
-							<Button type="submit">Pedir</Button>
+							<Button type="submit" disabled={!methods.getValues("size")}>
+								Pedir
+							</Button>
+							{!methods.getValues("size") && (
+								<div className="d-flex justify-content-end w-100">
+									<Form.Text className="text-danger fw-bold">
+										Escolha um tamanho
+									</Form.Text>
+								</div>
+							)}
 						</div>
 					</div>
 				</Form>
