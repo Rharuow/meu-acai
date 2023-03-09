@@ -25,3 +25,4 @@ export const db = getFirestore();
 export const userCollection = collection(db, "users");
 export const sizeCollection = collection(db, "sizes");
 export const roleCollection = collection(db, "roles");
+export const toppingCollection = collection(db, "toppings");

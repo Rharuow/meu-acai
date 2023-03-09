@@ -1,46 +1,47 @@
+import { getToppings } from "@/src/service/docs/toppings";
 import React, { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
-import {
-	mockedToppings,
-	Toppings,
-	Product,
-} from "../../../../../../entities/Product";
+import { Toppings, Menu } from "../../../../../../entities/Product";
 
 const Topping: React.FC<{
-	product: Product | undefined;
-	setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
-}> = ({ product, setProduct }) => {
+	menu: Menu | undefined;
+	setMenu: React.Dispatch<React.SetStateAction<Menu | undefined>>;
+}> = ({ menu, setMenu }) => {
 	const [toppings, setToppings] = useState<Toppings>(
-		product && product.toppings ? product.toppings : []
+		menu && menu.toppings ? menu.toppings : []
 	);
 
 	const checkboxsRef = useRef(new Array());
 
+	const {
+		data,
+		error,
+		isLoading,
+	}: { data: Toppings; error: any; isLoading: boolean } = useSWR(
+		"/toppings",
+		getToppings
+	);
+
 	useEffect(() => {
-		setProduct(
+		setMenu(
 			(prevState) =>
 				prevState && {
 					...prevState,
 					toppings,
 				}
 		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [toppings]);
+	}, [setMenu, toppings]);
 
-	useEffect(() => {
-		setToppings([]);
-	}, [product?.size]);
-
-	return product && product.size && product.size.amountOptions ? (
+	return menu && menu.size && menu.size.amountOptions ? (
 		<>
 			<div className="w-100 mb-1">
 				<p className="fs-6 fw-bold mb-0">
-					Escolha{product.size.amountOptions > 1 ? " até " : " "}
-					{product.size.amountOptions} opç
-					{product.size.amountOptions > 1 ? "ões:" : "ão:"}
+					Escolha{menu.size.amountOptions > 1 ? " até " : " "}
+					{menu.size.amountOptions} opç
+					{menu.size.amountOptions > 1 ? "ões:" : "ão:"}
 				</p>
 			</div>
-			{mockedToppings.map((topping, index) => (
+			{data.map((topping, index) => (
 				<div className="w-100" key={topping.id}>
 					<Form.Check
 						type="checkbox"
@@ -48,7 +49,7 @@ const Topping: React.FC<{
 						checked={toppings.map((top) => top.id).includes(topping.id)}
 						name="topping"
 						disabled={
-							toppings.length >= product.size.amountOptions &&
+							toppings.length >= menu.size.amountOptions &&
 							!checkboxsRef.current[index].checked
 						}
 						onChange={(e: any) => {
@@ -70,3 +71,9 @@ const Topping: React.FC<{
 };
 
 export default Topping;
+function useSWR(
+	arg0: string,
+	fetcher: any
+): { data: any; error: any; isLoading: any } {
+	throw new Error("Function not implemented.");
+}
