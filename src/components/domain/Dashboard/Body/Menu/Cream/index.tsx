@@ -15,8 +15,6 @@ const Cream: React.FC = () => {
 
 	const { data, error, isLoading } = useSWR("creams", fetcher);
 
-	console.log(error);
-
 	useEffect(() => {
 		data && setCreams(data);
 	}, [data]);
