@@ -27,3 +27,4 @@ export const creamCollection = collection(db, "creams");
 export const sizeCollection = collection(db, "sizes");
 export const roleCollection = collection(db, "roles");
 export const toppingCollection = collection(db, "toppings");
+export const storeCollection = collection(db, "store");
