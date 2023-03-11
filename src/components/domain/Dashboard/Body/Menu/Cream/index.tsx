@@ -13,7 +13,7 @@ import { pluralCase } from "@/src/utils/plural";
 const Cream: React.FC = () => {
 	const fetcher: Fetcher<Creams> = async () => await getCreams();
 
-	const { setValue, getValues } = useFormContext<Menu>();
+	const { setValue, getValues, watch } = useFormContext<Menu>();
 
 	const { data, error, isLoading } = useSWR("creams", fetcher);
 
@@ -32,6 +32,8 @@ const Cream: React.FC = () => {
 		setValue("creams", []);
 	}, [setValue]);
 
+	console.log(watch("creams") ?? watch("creams"));
+
 	return !isLoading ? (
 		<>
 			<div className="w-100 mb-1">
@@ -46,8 +48,9 @@ const Cream: React.FC = () => {
 			{data?.map((cream) => (
 				<div className="w-100 mb-3" key={cream.id}>
 					<Numeric
-						max={10}
+						key={getValues("size").name}
 						name={cream.name}
+						lockedMax={watch("creams").length === watch("size").amountCreams}
 						label={cream.name}
 						handleIncrement={() => addCream(cream)}
 						handleDecrement={() => removeCream(cream)}

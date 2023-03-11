@@ -12,6 +12,9 @@ const Numeric: React.FC<{
 	heigth?: number;
 
 	locked?: boolean;
+	lockedMax?: boolean;
+	lockedMin?: boolean;
+
 	vertical?: boolean;
 
 	defaultValue?: number;
@@ -24,6 +27,8 @@ const Numeric: React.FC<{
 	vertical,
 	label,
 	locked = false,
+	lockedMax = false,
+	lockedMin = false,
 	name,
 	min = 0,
 	defaultValue = 0,
@@ -75,7 +80,7 @@ const Numeric: React.FC<{
 				<Button
 					className="position-absolute h-25px rounded-circle fw-bold z-index-1 w-25px text-center p-0 top-5px end-4px"
 					size="sm"
-					disabled={maxDisabled || locked}
+					disabled={maxDisabled || lockedMax || locked}
 					onClick={() => {
 						max > numericInput.current.value && numericInput.current.stepUp();
 						setValue(numericInput.current.value as number);
@@ -88,7 +93,7 @@ const Numeric: React.FC<{
 				<Button
 					className="position-absolute h-25px rounded-circle fw-bold z-index-1 w-25px p-0 top-5px s-0"
 					size="sm"
-					disabled={minDisabled || locked}
+					disabled={minDisabled || lockedMin || locked}
 					onClick={() => {
 						min < numericInput.current.value && numericInput.current.stepDown();
 						setValue(numericInput.current.value as number);

@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import ReactLoading from "react-loading";
 import useSWR, { Fetcher } from "swr";
 
-import { Size } from "@/src/entities/Product";
+import { Size as SizeType } from "@/src/entities/Product";
 import { getSizes } from "@/src/service/docs/size";
 import { useWindowSize } from "@/src/Hooks/windowsize";
 import { useFormContext } from "react-hook-form";
@@ -13,7 +13,14 @@ const Size: React.FC = () => {
 
 	const { setValue, watch } = useFormContext();
 
-	const fetcher: Fetcher<Array<Size>> = async () => await getSizes();
+	const fetcher: Fetcher<Array<SizeType>> = async () => await getSizes();
+
+	const handleSizeOnClick = (size: SizeType) => {
+		setValue("size", size);
+		setValue("creams", []);
+		setValue("toppings", []);
+		setValue("value", size.value);
+	};
 
 	const { data, error, isLoading } = useSWR("sizes", fetcher);
 
@@ -37,7 +44,7 @@ const Size: React.FC = () => {
 												? "primary"
 												: "outline-primary"
 										}
-										onClick={() => setValue("size", size)}
+										onClick={() => handleSizeOnClick(size)}
 									>
 										{size.name}
 									</Button>
