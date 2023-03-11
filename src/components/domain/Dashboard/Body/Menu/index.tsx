@@ -88,7 +88,7 @@ const Product = () => {
 												</label>
 											</div>
 
-											<Extras />
+											{hasExtra && <Extras />}
 										</>
 									)}
 
@@ -105,7 +105,11 @@ const Product = () => {
 							<div className="w-100 d-flex justify-content-end flex-wrap">
 								<Button
 									type="submit"
-									disabled={!!conditions.find((c) => c.condition === false)}
+									disabled={
+										!methods.getValues("size") ||
+										methods.getValues("creams").length <
+											methods.getValues("size").amountCreams
+									}
 								>
 									Pedir
 								</Button>

@@ -1,7 +1,5 @@
-import { useWindowSize } from "@/src/Hooks/windowsize";
 import { getCreams } from "@/src/service/docs/creams";
-import React, { useEffect } from "react";
-import { Button } from "react-bootstrap";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 import ReactLoading from "react-loading";
 import useSWR, { Fetcher } from "swr";
@@ -27,10 +25,6 @@ const Cream: React.FC = () => {
 			getValues("creams").filter((c) => c.id !== cream.id)
 		);
 	};
-
-	useEffect(() => {
-		setValue("creams", []);
-	}, [setValue]);
 
 	console.log(watch("creams") ?? watch("creams"));
 
