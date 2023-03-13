@@ -5,9 +5,12 @@ import ReactLoading from "react-loading";
 
 import { Toppings, Topping, Menu } from "../../../../../../entities/Product";
 import Numeric from "../../../../../Numeric";
+import { useFormContext } from "react-hook-form";
 
 const Extras: React.FC = () => {
 	const fetcher: Fetcher<Toppings> = async () => await getToppings();
+
+	const { getValues, setValue } = useFormContext();
 
 	const { data, error, isLoading } = useSWR("extras", fetcher);
 
@@ -24,6 +27,12 @@ const Extras: React.FC = () => {
 						<Numeric
 							className="me-1"
 							max={10}
+							handleIncrement={() =>
+								setValue("value", getValues("value") + topping.value)
+							}
+							handleDecrement={() => {
+								setValue("value", getValues("value") - topping.value);
+							}}
 							name={topping.name}
 							label={`${topping.name} (R$
 						${topping.value.toLocaleString("pt-BR", { currency: "BRL" })})`}

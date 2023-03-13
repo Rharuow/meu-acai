@@ -33,13 +33,8 @@ const Product = () => {
 
 	const { data, error, isLoading } = useSWR("/open", getStatusStore);
 
-	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		Swal.fire({
-			icon: "success",
-			title: "Obrigado!",
-			text: "Seu pedido será preparado!",
-		});
+	const onSubmit = (data: Menu) => {
+		console.log("data = ", data);
 	};
 
 	const conditions = [
@@ -66,7 +61,7 @@ const Product = () => {
 				<ReactLoading type="spinningBubbles" color="#ffccff" />
 			) : data ? (
 				<FormProvider {...methods}>
-					<Form onSubmit={onSubmit}>
+					<Form onSubmit={methods.handleSubmit(onSubmit)}>
 						<div className="d-flex py-2 px-3 flex-wrap">
 							<Size />
 
@@ -93,7 +88,10 @@ const Product = () => {
 									)}
 
 									<div className="w-100 mb-1">
-										<p className="fs-6 fw-bold mb-0 text-primary mb-0">
+										<p
+											key={methods.watch("value")}
+											className="fs-6 fw-bold mb-0 text-primary mb-0"
+										>
 											Total: R${" "}
 											{methods
 												.getValues("value")
