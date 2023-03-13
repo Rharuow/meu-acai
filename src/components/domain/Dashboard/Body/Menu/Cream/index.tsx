@@ -26,8 +26,6 @@ const Cream: React.FC = () => {
 		);
 	};
 
-	console.log(watch("creams") ?? watch("creams"));
-
 	return !isLoading ? (
 		<>
 			<div className="w-100 mb-1">

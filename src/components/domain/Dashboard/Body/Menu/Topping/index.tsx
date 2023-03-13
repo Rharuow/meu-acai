@@ -1,6 +1,5 @@
 import { getToppings } from "@/src/service/docs/toppings";
 import React, { useRef } from "react";
-import { Form } from "react-bootstrap";
 import useSWR, { Fetcher } from "swr";
 import ReactLoading from "react-loading";
 
@@ -11,8 +10,6 @@ import { pluralCase } from "@/src/utils/plural";
 
 const Topping: React.FC = () => {
 	const fetcher: Fetcher<Toppings> = async () => await getToppings();
-
-	const checkboxsRef = useRef(new Array());
 
 	const { getValues, watch, setValue } = useFormContext<Menu>();
 
@@ -41,7 +38,7 @@ const Topping: React.FC = () => {
 				</p>
 			</div>
 			{data.map((topping, index) => (
-				<div className="w-100" key={topping.id}>
+				<div className="w-100 mb-3" key={topping.id}>
 					<Numeric
 						key={getValues("size").name}
 						name={topping.name}

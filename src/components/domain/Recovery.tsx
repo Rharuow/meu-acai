@@ -63,7 +63,6 @@ function Recovery() {
 	};
 
 	const validFieldsForms = () => {
-		console.log(watch("password"));
 		return (
 			watch("password") &&
 			watch("password").length > 0 &&

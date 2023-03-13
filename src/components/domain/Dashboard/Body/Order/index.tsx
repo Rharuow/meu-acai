@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import ReactLoading from "react-loading";
 import { useSessionContext } from "@/src/rharuow-admin/context/Session";
 
-import { Orders, OrderStatus } from "../../../../../entities/Order";
+import { Orders } from "../../../../../entities/Order";
 import ListOrder from "./List";
 
 const Historic = () => {

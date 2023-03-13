@@ -3,9 +3,9 @@ import { Button, Form } from "react-bootstrap";
 import useSWR from "swr";
 import Switch from "react-switch";
 import { useForm, FormProvider } from "react-hook-form";
-import Swal from "sweetalert2";
 import ReactLoading from "react-loading";
 import Lottie from "react-lottie";
+import { DateTime } from "luxon";
 
 import Cream from "./Cream";
 import Extras from "./Extra";
@@ -17,6 +17,10 @@ import { getStatusStore } from "@/src/service/docs/store";
 
 import closedAnimation from "@/src/components/closed.json";
 import { pluralCase } from "@/src/utils/plural";
+import { Order } from "@/src/entities/Order";
+import { useSessionContext } from "@/src/rharuow-admin/context/Session";
+import { createOrder } from "@/src/service/docs/orders";
+import Swal from "sweetalert2";
 
 const defaultOptions = {
 	loop: true,
@@ -29,12 +33,37 @@ const defaultOptions = {
 const Product = () => {
 	const methods = useForm<Menu>();
 
+	const { user } = useSessionContext();
+
 	const [hasExtra, setHasExtra] = useState(false);
 
 	const { data, error, isLoading } = useSWR("/open", getStatusStore);
 
-	const onSubmit = (data: Menu) => {
-		console.log("data = ", data);
+	const [loading, setLoading] = useState(isLoading);
+
+	const onSubmit = async (data: Menu) => {
+		setLoading(true);
+		const dataOrderFormatted = {
+			created_at: DateTime.now().toUTC().toString(),
+			product: { ...data, name: "Custom", visible: true },
+			status: "making",
+			user,
+		} as Order;
+		try {
+			await createOrder(dataOrderFormatted);
+			Swal.fire({
+				text: "Seu pedido foi realizado com Sucesso!",
+				icon: "success",
+				title: "Parabéns!",
+			});
+		} catch (error) {
+			Swal.fire({
+				title: "Opps...",
+				text: "Algo deu errado!",
+				icon: "error",
+			});
+		}
+		setLoading(false);
 	};
 
 	const conditions = [
@@ -57,7 +86,7 @@ const Product = () => {
 
 	return (
 		<>
-			{isLoading ? (
+			{loading ? (
 				<ReactLoading type="spinningBubbles" color="#ffccff" />
 			) : data ? (
 				<FormProvider {...methods}>
@@ -79,7 +108,9 @@ const Product = () => {
 														checked={hasExtra}
 														onColor="#46295a"
 													/>
-													<span className="ms-2">Adicionar Extra?</span>
+													<span className="ms-2 text-primary">
+														Adicionar Extra?
+													</span>
 												</label>
 											</div>
 
