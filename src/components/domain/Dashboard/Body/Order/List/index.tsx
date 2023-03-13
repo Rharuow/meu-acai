@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard, faMoneyBill1 } from "@fortawesome/free-solid-svg-icons";
 import { faPix } from "@fortawesome/free-brands-svg-icons";
 
-import { Orders, OrderStatus } from "../../../../../../entities/Order";
+import { Orders } from "../../../../../../entities/Order";
 
 const ListOrder: React.FC<{ orders: Orders | undefined }> = ({ orders }) => {
 	const getIcon = (text: string) => {
@@ -36,7 +36,7 @@ const ListOrder: React.FC<{ orders: Orders | undefined }> = ({ orders }) => {
 						bg={
 							order.payment_date
 								? "primary-dark"
-								: order.status === OrderStatus.making
+								: order.status === "making"
 								? "warning-dark"
 								: "danger-dark"
 						}

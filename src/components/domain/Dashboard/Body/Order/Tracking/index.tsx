@@ -14,11 +14,7 @@ const Tracking = () => {
 	const ordersInWating: Array<any> = [];
 
 	const stepIsDone = (status: OrderStatus, currentStatus: OrderStatus) => {
-		if (
-			status === OrderStatus.delivering &&
-			currentStatus === OrderStatus.making
-		)
-			return true;
+		if (status === "delivering" && currentStatus === "making") return true;
 		return false;
 	};
 
@@ -42,11 +38,11 @@ const Tracking = () => {
 								})}
 							</p>
 							<div className="d-flex justify-content-between w-100">
-								{order.status === OrderStatus.waiting &&
-									[OrderStatus.waiting].map((status) => (
+								{order.status === "waiting" &&
+									["waiting"].map((status) => (
 										<Step
 											key={status}
-											text={`${glossary.status.pt[status]} (${
+											text={`${glossary.status.pt[status as OrderStatus]} (${
 												ordersInWating.find((or) => or.id === order.id)
 													?.position
 											})`}
@@ -56,17 +52,13 @@ const Tracking = () => {
 									))}
 							</div>
 							<div className="d-flex justify-content-between w-100">
-								{[
-									OrderStatus.making,
-									OrderStatus.delivering,
-									OrderStatus.done,
-								].map((status, index) => (
+								{["making", "delivering", "done"].map((status, index) => (
 									<Step
 										key={status}
-										text={glossary.status.pt[status]}
+										text={glossary.status.pt[status as OrderStatus]}
 										className="w-100 text-center"
 										isCurrent={order.status === status}
-										isDone={stepIsDone(order.status, status)}
+										isDone={stepIsDone(order.status, status as OrderStatus)}
 									/>
 								))}
 							</div>
