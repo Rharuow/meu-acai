@@ -5,7 +5,7 @@ import ReactLoading from "react-loading";
 import Lottie from "react-lottie";
 import { useFormContext } from "react-hook-form";
 
-import { Toppings } from "@/src/entities/Product";
+import { Menu, Topping, Toppings } from "@/src/entities/Product";
 import Numeric from "@/src/components/Numeric";
 import animationData from "@/src/components/sorryAnimation.json";
 
@@ -20,11 +20,20 @@ const defaultOptions = {
 const Extras: React.FC = () => {
 	const fetcher: Fetcher<Toppings> = async () => await getToppings(true);
 
-	const { getValues, setValue } = useFormContext();
+	const { getValues, setValue } = useFormContext<Menu>();
 
 	const { data, error, isLoading } = useSWR("extras", fetcher);
 
-	console.log(data);
+	const addExtra = (topping: Topping) => {
+		setValue("extras", [...(getValues("extras") || []), topping]);
+	};
+
+	const removeExtra = (topping: Topping) => {
+		setValue(
+			"extras",
+			getValues("extras")?.filter((t) => t.id !== topping.id)
+		);
+	};
 
 	return isLoading ? (
 		<ReactLoading type="spinningBubbles" color="#ffccff" />
@@ -42,10 +51,12 @@ const Extras: React.FC = () => {
 							<Numeric
 								className="me-1"
 								max={5}
-								handleIncrement={() =>
-									setValue("value", getValues("value") + topping.value)
-								}
+								handleIncrement={() => {
+									setValue("value", getValues("value") + topping.value);
+									addExtra(topping);
+								}}
 								handleDecrement={() => {
+									removeExtra(topping);
 									setValue("value", getValues("value") - topping.value);
 								}}
 								name={topping.name}

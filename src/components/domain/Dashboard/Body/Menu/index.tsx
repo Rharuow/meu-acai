@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import useSWR from "swr";
 import Switch from "react-switch";
@@ -41,6 +41,10 @@ const Product = () => {
 
 	const [loading, setLoading] = useState(isLoading);
 
+	useEffect(() => {
+		setLoading(isLoading);
+	}, [isLoading]);
+
 	const onSubmit = async (data: Menu) => {
 		setLoading(true);
 		const dataOrderFormatted = {
@@ -49,12 +53,15 @@ const Product = () => {
 			status: "making",
 			user,
 		} as Order;
+		console.log("dataOrderFormatted = ", dataOrderFormatted);
 		try {
 			await createOrder(dataOrderFormatted);
 			Swal.fire({
 				text: "Seu pedido foi realizado com Sucesso!",
 				icon: "success",
 				title: "Parabéns!",
+			}).then(() => {
+				window.location.reload();
 			});
 		} catch (error) {
 			Swal.fire({
@@ -63,7 +70,6 @@ const Product = () => {
 				icon: "error",
 			});
 		}
-		setLoading(false);
 	};
 
 	const conditions = [
@@ -87,7 +93,9 @@ const Product = () => {
 	return (
 		<>
 			{loading ? (
-				<ReactLoading type="spinningBubbles" color="#ffccff" />
+				<div className="d-flex justify-content-center w-100">
+					<ReactLoading type="spinningBubbles" color="#ffccff" />
+				</div>
 			) : data ? (
 				<FormProvider {...methods}>
 					<Form onSubmit={methods.handleSubmit(onSubmit)}>

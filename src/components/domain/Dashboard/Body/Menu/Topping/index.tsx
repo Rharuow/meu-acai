@@ -13,11 +13,11 @@ const Topping: React.FC = () => {
 
 	const { getValues, watch, setValue } = useFormContext<Menu>();
 
-	const addCream = (topping: ToppingType) => {
+	const addTopping = (topping: ToppingType) => {
 		setValue("toppings", [...(getValues("toppings") || []), topping]);
 	};
 
-	const removeCream = (topping: ToppingType) => {
+	const removeTopping = (topping: ToppingType) => {
 		setValue(
 			"toppings",
 			getValues("toppings")?.filter((t) => t.id !== topping.id)
@@ -46,8 +46,8 @@ const Topping: React.FC = () => {
 							watch("toppings")?.length === watch("size").amountOptions
 						}
 						label={topping.name}
-						handleIncrement={() => addCream(topping)}
-						handleDecrement={() => removeCream(topping)}
+						handleIncrement={() => addTopping(topping)}
+						handleDecrement={() => removeTopping(topping)}
 					/>
 				</div>
 			))}
