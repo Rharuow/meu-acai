@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { MD5, SHA256 } from "crypto-js";
 
 import listAddress from "./utils/address";
-import { createUser, userAlreadyExists } from "@/src/service/docs/users";
+import { createUser, getUser } from "@/src/service/docs/users";
 import { Role, User } from "@/src/entities/User";
 import { getRoles } from "@/src/service/docs/roles";
 import Swal from "sweetalert2";
@@ -17,21 +17,36 @@ import { whatsappNumerFormatter } from "@/src/utils/whatsappNumberFormatter";
 const SignUp = () => {
 	const route = useRouter();
 	const [validated, setValidated] = useState(false);
-	const [numberMessageValidator, setNumberMessageValidator] = useState(
-		"O número de telefone é obrigatório!"
-	);
+	const [numberValidated, setNumberValidated] = useState(true);
 
 	const { houses, squares } = listAddress();
 
 	const methods = useForm<User>();
 
 	const onSubmit = async (data: User, event: any) => {
+		setValidated(true);
 		const form = event.target;
-		if (form.checkValidity() === false) {
+		if (
+			form.checkValidity() === false ||
+			!data.name ||
+			!data.address ||
+			!data.password ||
+			!data.phone
+		) {
 			event.preventDefault();
 			event.stopPropagation();
+			return;
 		}
 
+		const addressAlreadyExistis =
+			data.address && (await getUser({ address: data.address, id: "" }));
+
+		if (addressAlreadyExistis !== "Usuário não encontrado!")
+			return Swal.fire({
+				title: "Opps...",
+				text: "Esse endereço ja foi cadastrado",
+				icon: "info",
+			});
 		const roles = (await getRoles()) as Array<Role>;
 
 		const dataFormatted: User = {
@@ -60,26 +75,24 @@ const SignUp = () => {
 					"_blank"
 				);
 			});
-
-		setValidated(true);
 	};
 
-	const handleCellPhoneValidation = async (
-		e: React.FocusEvent<HTMLInputElement, Element>
+	const handlePhoneValidate = async (
+		phone: string,
+		e: EventTarget & HTMLInputElement
 	) => {
-		const userExists = await userAlreadyExists(e.target.value);
-		if (userExists) {
-			setValidated(true);
-			e.target.value = "+55(0";
-			setNumberMessageValidator("Número já cadastrado!");
-		} else if (
-			e.target.value.split("").filter((v) => v !== "_" && v !== "-").length < 17
-		) {
-			setValidated(true);
-			e.target.value = "+55(0";
-			setNumberMessageValidator("Número muito curto.");
+		if (phone.split("").filter((c: any) => !isNaN(c)).length === 14) {
+			const userNotExists =
+				(await getUser({ phone, id: " " })) === "Usuário não encontrado!";
+			!userNotExists &&
+				methods.setValue("phone", phone.substring(0, phone.length - 13));
+			setNumberValidated(userNotExists);
+			setValidated(!userNotExists);
+		} else {
+			setNumberValidated(true);
 		}
 	};
+
 	return (
 		<div className="d-flex flex-wrap pb-5 bg-primary">
 			<div className="w-100 mt-15px ms-15px mb-3">
@@ -104,13 +117,18 @@ const SignUp = () => {
 								<InputMask
 									{...methods.register("phone")}
 									className="form-control"
+									onChange={(e) => {
+										handlePhoneValidate(e.target.value, e.target);
+									}}
 									mask="+55(099)99999-9999"
 									placeholder="Digite seu número"
-									onBlur={(e) => handleCellPhoneValidation(e)}
 									required
+									formNoValidate={!numberValidated}
 								/>
 								<Form.Control.Feedback type="invalid">
-									{numberMessageValidator}
+									{!numberValidated
+										? "Número em uso"
+										: "O número é obrigatório"}
 								</Form.Control.Feedback>
 							</Form.Group>
 							<Form.Group className="mb-3">

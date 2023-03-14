@@ -83,9 +83,23 @@ export const createSession = async (data: User) => {
 	return false;
 };
 
-export const getUser = async ({ name, id }: { name?: string; id: string }) => {
+export const getUser = async ({
+	name,
+	id,
+	phone,
+	address,
+}: {
+	name?: string;
+	address?: { house: number; square: number };
+	phone?: string;
+	id: string;
+}) => {
 	const q = name
 		? query(collection(db, "users"), where("name", "==", name))
+		: address
+		? query(collection(db, "users"), where("address", "==", address))
+		: phone
+		? query(collection(db, "users"), where("phone", "==", phone))
 		: query(collection(db, "users"), where("id", "==", id));
 	const user = (await getDocs(q)).docs[0];
 	if (user && user.exists()) return user.data();
