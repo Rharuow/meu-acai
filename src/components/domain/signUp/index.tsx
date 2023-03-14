@@ -108,7 +108,7 @@ const SignUp = () => {
 				<Card className="shadow-lg border-primary">
 					<Card.Body className="bg-secondary">
 						<Form
-							noValidate
+							// noValidate
 							validated={validated}
 							onSubmit={methods.handleSubmit(onSubmit)}
 						>
@@ -149,7 +149,12 @@ const SignUp = () => {
 									className="mb-3"
 									required
 									{...methods.register("address.square")}
+									isInvalid={
+										!methods.watch("address") ||
+										isNaN(methods.watch("address").square)
+									}
 								>
+									<option>Selecione a Quadra</option>
 									{squares.map((square, index) => (
 										<option key={index} value={index + 1}>
 											Quadra {index + 1}
@@ -159,8 +164,14 @@ const SignUp = () => {
 								<Form.Select
 									{...methods.register("address.house")}
 									aria-label="What's your house number address"
+									isInvalid={
+										!methods.watch("address") ||
+										isNaN(methods.watch("address").house)
+									}
+									isValid={false}
 									required
 								>
+									<option>Selecione a Casa</option>
 									{houses.map((house, index) => (
 										<option key={index} value={index + 1}>
 											Casa {index + 1}
